@@ -1,5 +1,3 @@
-Serial xbee;
-
 class CommunicationThread extends Thread {
   
   static final char ARBOTIX_READY_CHAR = 'A';

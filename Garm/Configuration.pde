@@ -9,5 +9,10 @@ class Configuration {
   static final String GAMEPAD = "Controller (XBOX 360 For Windows)";
   //static final String GAMEPAD = "Controller (Xbox 360 Wireless Receiver for Windows)";
   static final float INPUT_TOLERANCE = 0.12f;
+  static final int ARM_CONTROL_SCHEME = 0;
+  
+  static final float KP = 0.2;
+  static final float KI = 0.2;
+  static final float KD = 0.2;
   
 }

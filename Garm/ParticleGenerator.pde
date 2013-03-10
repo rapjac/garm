@@ -74,6 +74,7 @@ class Particle {
     opacity -= fade;
      
     if(opacity > 0) {
+      noStroke();
       fill( #C9C9C9, opacity );
       ellipse( x, y, particleSize, particleSize);
     }

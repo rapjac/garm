@@ -1,5 +1,4 @@
-ControllIO io;
-ControllDevice device;
+
 
 class XboxController {
   

@@ -4,15 +4,21 @@ import net.java.games.input.*;
 
 Configuration config;
 
-XboxController xbox;
-
 ControlThread control;
 CommunicationThread communication;
 
 ArmDisplay armDisplay;
+DriveDisplay driveDisplay;
 
-PFont titleFont = createFont("Courier New Bold", 80);
+Serial xbee;
+
+ControllIO io;
+ControllDevice device;
+XboxController xbox;
+
+PFont titleFont = createFont("Impact", 80);
 PFont subTitleFont = createFont("Courier New", 16);
+PFont displayFont = createFont("Courier New", 12 );
 
 void setup() {
   
@@ -31,14 +37,13 @@ void setup() {
     io = ControllIO.getInstance( this );
     device = io.getDevice( config.GAMEPAD );
     xbox = new XboxController();
-    xbox.print();
-    
   }
   
   // GUI Elements
-  armDisplay = new ArmDisplay( width*5/8, height/2, 480, 384 );
+  armDisplay = new ArmDisplay( width*45/64, height*11/32, 480, 384 );
+  driveDisplay = new DriveDisplay( width*45/64, height*26/32, 480, 160 );
   
-  // Costruct Threads
+  // Threads
   control = new ControlThread( "control", 10 );
   control.start();
   
@@ -55,6 +60,7 @@ void render() {
   renderBackground();
   renderTitle();
   armDisplay.render();
+  driveDisplay.render();
 }
 
 void renderTitle() {
