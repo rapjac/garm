@@ -5,6 +5,6 @@ class ArmGripper {
   }
   
   void update( int grip ) {
-    this.grip = (int) constrain( map( grip, -1, 0, 0, 1023 ), 0, 1023);
+    this.grip = (int) map( constrain( grip, 0, 1023), -1, 0, 0, 1023 );
   }
 }

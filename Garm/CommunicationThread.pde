@@ -1,3 +1,5 @@
+Serial xbee;
+
 class CommunicationThread extends Thread {
   
   static final char ARBOTIX_READY_CHAR = 'A';
@@ -5,6 +7,7 @@ class CommunicationThread extends Thread {
   String id;
   int wait;
   boolean running;
+  boolean serialActive = false;
   
   CommunicationThread( String id, int wait ) {
     this.id = id;
@@ -37,8 +40,10 @@ class CommunicationThread extends Thread {
   }
   
   void sendInt( int data ) {
+    serialActive = true;
     xbee.write( ( data >> 8 ) & 0xFF );
     xbee.write( ( data & 0xFF ) );
+    serialActive = false;
   }
   
   void quit() {

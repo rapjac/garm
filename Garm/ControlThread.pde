@@ -3,22 +3,9 @@ class ControlThread extends Thread {
   int wait;
   boolean running;
   
-  ControllSlider rightTrigger;
-  ControllStick leftStick;
-  ControllStick rightStick;
-  
   ControlThread( String id, int wait ) {
     this.id = id;
     this.wait = wait;
-    
-    if( !config.DEBUG_MODE ) {
-      this.leftStick = new ControllStick( device.getSlider(1), device.getSlider(0) );
-      this.leftStick.setTolerance(0.12f);
-      this.rightStick = new ControllStick( device.getSlider(3), device.getSlider(2) );
-      this.rightStick.setTolerance(0.12f);
-      this.rightTrigger = device.getSlider(4);
-      this.rightTrigger.setTolerance(0.12f);
-    }
   }
   
   void start() {
@@ -32,12 +19,12 @@ class ControlThread extends Thread {
       int r = armDisplay.arm.getTotalLength();
       
       if( !config.DEBUG_MODE ) {
-        armDisplay.targetX += 3*this.leftStick.getX();
-        armDisplay.targetY += 3*this.leftStick.getY();
-        armDisplay.grip = (int) map( this.rightTrigger.getValue(), -1, 1, 0, 1023 );
+        armDisplay.targetX += 3*xbox.leftStick.getX();
+        armDisplay.targetY += 3*xbox.leftStick.getY();
+        armDisplay.grip = (int) map( xbox.rightTrigger.getValue(), -1, 0, 0, 1023 );
       
-        if( device.getButton(4).pressed() ) armDisplay.rotatorAngle = constrain( armDisplay.rotatorAngle += -5*rightStick.getX(), 0, 1023 );
-        else armDisplay.wristAngle = constrain( armDisplay.wristAngle += PI/120*rightStick.getY(), -radians(150), radians(150) );
+        if( xbox.leftBumper.getValue() ) armDisplay.rotatorAngle = (int) constrain( armDisplay.rotatorAngle - 3*xbox.rightStick.getX(), 0, 1023 );
+        else armDisplay.wristAngle = constrain( armDisplay.wristAngle += PI/120 * xbox.rightStick.getY(), -radians(150), radians(150) );
       
       } else {
         armDisplay.targetX = mouseX - width/2;

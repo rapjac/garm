@@ -4,23 +4,21 @@ import net.java.games.input.*;
 
 Configuration config;
 
+XboxController xbox;
+
 ControlThread control;
 CommunicationThread communication;
 
-Serial xbee;
-
-ControllIO io;
-ControllDevice device;
-
-ControllStick leftStick;
-ControllStick rightStick;
-
 ArmDisplay armDisplay;
+
+PFont titleFont = createFont("Courier New Bold", 80);
+PFont subTitleFont = createFont("Courier New", 16);
 
 void setup() {
   
   // Set Windows Size
-  size( 800, 600 );
+  size( 960, 700 );
+  smooth();
   
   // Configuration Settings
   config = new Configuration();
@@ -31,12 +29,14 @@ void setup() {
   // Connect to Gamepad
   if( !config.DEBUG_MODE ) {
     io = ControllIO.getInstance( this );
-    io.printDevices();
     device = io.getDevice( config.GAMEPAD );
+    xbox = new XboxController();
+    xbox.print();
+    
   }
   
   // GUI Elements
-  armDisplay = new ArmDisplay( width/2, height/2, 640, 480 );
+  armDisplay = new ArmDisplay( width*5/8, height/2, 480, 384 );
   
   // Costruct Threads
   control = new ControlThread( "control", 10 );
@@ -48,12 +48,28 @@ void setup() {
 }
 
 void draw() {
-  background( #ACACAC );
   render();
 }
 
 void render() {
+  renderBackground();
+  renderTitle();
   armDisplay.render();
+}
+
+void renderTitle() {
+  textFont( titleFont );
+  textAlign( LEFT, CENTER );
+  fill( #868686 );
+  text( "g.arm", width/16, height/16 );
+  fill( #434343 );
+  textFont( subTitleFont );
+  text( "Rover Controller Application", width/16 + 45, height/16 + 48 );
+}
+
+void renderBackground() {
+  background( #ACACAC );
+  if( config.SPECIAL_EFFECTS ) generateParticles();
 }
 
 
