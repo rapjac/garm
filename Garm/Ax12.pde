@@ -3,9 +3,8 @@ class Ax12 {
   //Basic Information
   int id = 1;
 
-  //
-  boolean led = false;
-  int goalPosition = 512;
+  //Output Values
+  PidOutput goalPosition;
   int movingSpeed = 0;
 
   //Value Limits
@@ -15,6 +14,7 @@ class Ax12 {
   int minVoltage = 60;
 
   //Feedback Values
+  boolean led = false;
   boolean moving = false;
   int presentSpeed = 0;
   int presentPosition = 0;
@@ -26,8 +26,12 @@ class Ax12 {
     this.id = id;
   }
   
-  void setPosition( int position ) {
-    this.goalPosition = constrain( position, 0, 1023 );
+  void setPosition( float position ) {
+    this.goalPosition.output( constrain( position, 0, 1023 ) );
+  }
+  
+  int getServoValue() {
+    return (int) this.goalPosition.processVar;
   }
 
 }
