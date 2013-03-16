@@ -47,7 +47,8 @@ class ArmDisplay {
       line( x, y, dx, dy );
       stroke( #121212 );
       strokeWeight( width/80 );
-      fill( #00AC00 );
+      if( !this.arm.links[i].actuator.led ) fill( #00AC00 );
+      else fill( #AC0000 );
       ellipse( x, y, width/20, width/20 );   
       strokeWeight( width/64 );
       line( x, y, dx, dy );
@@ -57,8 +58,7 @@ class ArmDisplay {
       x = dx;
       y = dy;
     }
-    
-    int dist = (int) map( constrain( this.grip, 0, 1023 ), 0, 1023, 2, width/20 );
+    int dist = (int) map( constrain( this.grip, 205, 512 ), 205, 512, 2, width/20 );
     float angle = this.arm.links[2].angle;
     float gripperTopX = x + dist/2*cos(angle + HALF_PI);
     float gripperTopY = y + dist/2*sin(angle + HALF_PI);
@@ -90,7 +90,8 @@ class ArmDisplay {
     
     stroke( #121212 );
     strokeWeight( width/80 );
-    fill( #00AC00 );
+    if( !this.arm.gripper.actuator.led ) fill( #00AC00 );
+    else fill( #AC0000 );
     ellipse( x, y, width/20, width/20 );   
     noStroke();
     fill( #121212 );
@@ -102,11 +103,12 @@ class ArmDisplay {
     
     float startX = this.x;
     float startY = this.y + height/2;
-    float angle = PI/6 + map( arm.rotator.servoValue, 0, 1024, radians(0), radians(300) );
+    float angle = PI/6 + map( arm.rotator.getServoValue(), 0, 1023, radians(0), radians(300) );
     
     stroke( #121212 );
     strokeWeight( this.width/80 );
-    fill( #00AC00 );
+    if( !this.arm.rotator.actuator.led ) fill( #00AC00 );
+    else fill( #AC0000 );
     ellipse( startX, startY, this.width/10, this.width/10 );   
     strokeWeight( this.width/48 );
     line( startX, startY, startX + this.width/12*cos(-angle+ HALF_PI), startY + this.width/12*sin(-angle+HALF_PI) );
@@ -115,8 +117,7 @@ class ArmDisplay {
     ellipse( startX, startY, this.width/20, this.width/20 );
   }
   
-  void drawWindow() {
-    
+  void drawWindow() {   
     rectMode( CORNER );
     stroke( #121212 );
     strokeWeight(5);

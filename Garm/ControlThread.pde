@@ -12,16 +12,13 @@ class ControlThread extends Thread {
   void start() {
     this.running = true;
     super.start();
+    xbox.plug( xbox.rightBumper, "switchMode", "ON_PRESS" );
   }
   
   void run() {
     while( running ) {
-      int r = armDisplay.arm.getTotalLength();
-      
-      if( xbox.rightBumper.getValue() ) armControlMode = !armControlMode;
-      
       if( !config.DEBUG_MODE ) {
-        if( armControlMode ) {
+        if( this.armControlMode ) {
           driveDisplay.drive.update( 0, 0 );
           switch( config.ARM_CONTROL_SCHEME ) {
             case 1:

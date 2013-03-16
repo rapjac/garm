@@ -19,11 +19,12 @@ class Ax12 {
   int presentSpeed = 0;
   int presentPosition = 0;
   int presentLoad = 0;
-  int presentVoltage = 6;
+  int presentVoltage = 0;
   int presentTemperature = 0;
   
   Ax12( int id ) {
     this.id = id;
+    goalPosition = new PidOutput( config.KP, config.KI, config.KD, 0 );
   }
   
   void setPosition( float position ) {
@@ -31,7 +32,7 @@ class Ax12 {
   }
   
   int getServoValue() {
-    return (int) this.goalPosition.processVar;
+    return constrain( (int) this.goalPosition.processVar, 0, 1023 );
   }
 
 }

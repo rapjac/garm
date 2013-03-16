@@ -9,6 +9,7 @@ CommunicationThread communication;
 
 ArmDisplay armDisplay;
 DriveDisplay driveDisplay;
+DataDisplay dataDisplay;
 
 Serial xbee;
 
@@ -16,14 +17,14 @@ ControllIO io;
 ControllDevice device;
 XboxController xbox;
 
-PFont titleFont = createFont("Impact", 80);
-PFont subTitleFont = createFont("Courier New", 16);
-PFont displayFont = createFont("Courier New", 12 );
+PFont titleFont = createFont( "Impact", 80 );
+PFont subTitleFont = createFont( "Georgia", 12 );
+PFont displayFont = createFont( "Courier New", 12 );
 
 void setup() {
   
   // Set Windows Size
-  size( 960, 700 );
+  size( 960, 650 );
   smooth();
   
   // Configuration Settings
@@ -41,13 +42,14 @@ void setup() {
   
   // GUI Elements
   armDisplay = new ArmDisplay( width*45/64, height*11/32, 480, 384 );
-  driveDisplay = new DriveDisplay( width*45/64, height*26/32, 480, 160 );
+  driveDisplay = new DriveDisplay( width*45/64, height*27/32, 480, 160 );
+  dataDisplay = new DataDisplay( width*7/32, height*20/32, 350, 448 );
   
   // Threads
   control = new ControlThread( "control", 10 );
   control.start();
   
-  communication = new CommunicationThread( "communication", 15 );
+  communication = new CommunicationThread( "communication", 10 );
   communication.start();
   
 }
@@ -61,6 +63,7 @@ void render() {
   renderTitle();
   armDisplay.render();
   driveDisplay.render();
+  dataDisplay.render();
 }
 
 void renderTitle() {
@@ -78,4 +81,28 @@ void renderBackground() {
   if( config.SPECIAL_EFFECTS ) generateParticles();
 }
 
-
+void keyPressed() {
+  switch( key ) {
+    case 'w':
+      driveDisplay.value1 = constrain( driveDisplay.value1 - 0.2, -1, 1 );
+    break;
+    case 'a':
+      driveDisplay.value0 = constrain( driveDisplay.value0 - 0.2, -1, 1 );
+    break;
+    case 's':
+      driveDisplay.value1 = constrain( driveDisplay.value1 + 0.2, -1, 1 );
+    break;
+    case 'd':
+      driveDisplay.value0 = constrain( driveDisplay.value0 + 0.2, -1, 1 );
+    break;
+    case 'r':
+      armDisplay.rotatorAngle += 100;
+    break;
+    case 'f':
+      armDisplay.rotatorAngle -= 100;
+    break;
+    case ' ':
+      communication.serialActive = !communication.serialActive;
+    break;
+  }
+}

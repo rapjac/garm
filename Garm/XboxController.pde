@@ -2,7 +2,6 @@
 
 class XboxController {
   
-  
   //Internal Classes
   class AnalogStick {
     ControllStick stick;
@@ -81,12 +80,18 @@ class XboxController {
     this.x = new Button( 2 );
     this.y = new Button( 3 );
     this.leftBumper = new Button( 4 );
-    this.rightBumper = new Button( 5 );
+    this.rightBumper = new Button( 5);
     this.back = new Button( 6 );
     this.start = new Button( 7 );
     this.leftClick = new Button( 8 );
     this.rightClick = new Button( 9 );
     this.dpad = new DPad( 10 );
+  }
+  
+  void plug( XboxController.Button input, String methodName, String event ) {
+    if( event == "ON_PRESS" ) input.button.plug( methodName, ControllIO.ON_PRESS);
+    else if( event == "ON_RELEASE" ) input.button.plug( methodName, ControllIO.ON_RELEASE);
+    else if( event == "WHILE_PRESS" ) input.button.plug( methodName, ControllIO.WHILE_PRESS);
   }
   
   void print() {
@@ -96,6 +101,12 @@ class XboxController {
   }
   
 }
+
+// Button Event Handlers
+
+void switchMode() {
+    control.armControlMode = !control.armControlMode;
+ }
 
 
 

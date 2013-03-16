@@ -8,6 +8,9 @@ class DriveDisplay {
   int startX = 0;
   int startY = 0;
   
+  float value0;
+  float value1;
+  
   Drive drive;
   
   DriveDisplay( int x, int y, int width, int height ) {

@@ -5,10 +5,10 @@ class Arm {
   
   
   Arm( int[] lengths ) {
-    this.rotator = new ArmRotator();
+    this.rotator = new ArmRotator( 1 );
     this.links = new ArmLink[3];
-    this.gripper = new ArmGripper();
-    for( int i = 0; i < this.links.length; i++ ) this.links[i] = new ArmLink( lengths[i] );
+    this.gripper = new ArmGripper( 5 );
+    for( int i = 0; i < this.links.length; i++ ) this.links[i] = new ArmLink( lengths[i], i+2 );
   }
   
   void update( int rotatorAngle, int x, int y, float wristAngle, int grip ) {
@@ -31,9 +31,11 @@ class Arm {
     
     float angle0 = constrain( (-( E - HALF_PI ) > 0 ? -( E - HALF_PI ) : -( E - HALF_PI ) + TWO_PI), radians(30), radians(330) );
     
-    this.links[0].servoValue = (int) map( degrees( angle0 ) - 30, 0, 300, 0, 1023 );
-    this.links[1].servoValue = (int) map( degrees(C) - 30, 0, 300, 0, 1023 );
-    this.links[2].servoValue = (int) map( degrees( wristAngle ), 150, -150, 0, 1023 );
+    this.rotator.setPosition( (float) rotatorAngle );
+    this.links[0].setPosition( map( degrees( angle0 ) - 30, 0, 300, 0, 1023 ) );
+    this.links[1].setPosition( map( degrees(C) - 30, 0, 300, 0, 1023 ) );
+    this.links[2].setPosition( map( degrees( wristAngle ), 150, -150, 0, 1023 ) );
+    this.gripper.setPosition( grip );
     
   }
   

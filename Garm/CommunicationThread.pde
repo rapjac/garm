@@ -1,7 +1,5 @@
 class CommunicationThread extends Thread {
   
-  static final char ARBOTIX_READY_CHAR = 'A';
-  
   String id;
   int wait;
   boolean running;
@@ -20,6 +18,7 @@ class CommunicationThread extends Thread {
   void run() {
     while( running ) {
       send();
+      receive();
       try {
         sleep((long)(wait));
       } catch (Exception e) {
@@ -28,20 +27,26 @@ class CommunicationThread extends Thread {
   }
   
   void send(){
-    if( xbee.available() > 0 && xbee.read() == ARBOTIX_READY_CHAR ) {
-      sendInt( armDisplay.arm.rotator.servoValue );
-      sendInt( armDisplay.arm.links[0].servoValue );
-      sendInt( armDisplay.arm.links[1].servoValue );
-      sendInt( armDisplay.arm.links[2].servoValue );
-      sendInt( armDisplay.arm.gripper.grip );
-    }
+      if( xbee.available() > 0 && xbee.read() == config.ARBOTIX_READY_CHAR ) {
+        sendInt( armDisplay.arm.rotator.getServoValue() );
+        sendInt( armDisplay.arm.links[0].getServoValue() );
+        sendInt( armDisplay.arm.links[1].getServoValue() );
+        sendInt( armDisplay.arm.links[2].getServoValue() );
+        sendInt( armDisplay.arm.gripper.getServoValue() );
+      }
+  }
+  
+  void receive() {
+    armDisplay.arm.rotator.actuator.presentPosition = armDisplay.arm.rotator.getServoValue();
+    armDisplay.arm.links[0].actuator.presentPosition = armDisplay.arm.links[0].getServoValue();
+    armDisplay.arm.links[1].actuator.presentPosition = armDisplay.arm.links[1].getServoValue();
+    armDisplay.arm.links[2].actuator.presentPosition = armDisplay.arm.links[2].getServoValue();
+    armDisplay.arm.gripper.actuator.presentPosition = armDisplay.arm.gripper.getServoValue();
   }
   
   void sendInt( int data ) {
-    serialActive = true;
     xbee.write( ( data >> 8 ) & 0xFF );
     xbee.write( ( data & 0xFF ) );
-    serialActive = false;
   }
   
   void quit() {
