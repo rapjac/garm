@@ -1,6 +1,6 @@
 class ArmGripper {
   Ax12 actuator;
-  int grip = 1023;
+  int grip = 205;
   
   ArmGripper( int servoId ) {
     this.actuator = new Ax12( servoId ) ;

@@ -23,7 +23,7 @@ class ControlThread extends Thread {
           switch( config.ARM_CONTROL_SCHEME ) {
             case 1:
               armDisplay.targetX += -3*xbox.leftStick.getY();
-              armDisplay.grip = (int) map( xbox.rightTrigger.getValue(), -1, 0, 0, 1023 );
+              armDisplay.grip = (int) map( xbox.rightTrigger.getValue(), -1, 0, 205, 512 );
               if( xbox.leftBumper.getValue() ) {
                 armDisplay.wristAngle = constrain( armDisplay.wristAngle += PI/120 * xbox.rightStick.getY(), -radians(150), radians(150) );
                 armDisplay.rotatorAngle = (int) constrain( armDisplay.rotatorAngle - 3*xbox.leftStick.getX(), 0, 1023 );
@@ -31,11 +31,11 @@ class ControlThread extends Thread {
               else armDisplay.targetY += 3*xbox.rightStick.getY();
             break;
             default:
-              armDisplay.targetX += 3*xbox.leftStick.getX();
-              armDisplay.targetY += 3*xbox.leftStick.getY();
-              armDisplay.grip = (int) map( xbox.rightTrigger.getValue(), -1, 0, 0, 1023 );
+              armDisplay.targetX += 2*xbox.leftStick.getX();
+              armDisplay.targetY += 2*xbox.leftStick.getY();
+              armDisplay.grip = (int) map( xbox.rightTrigger.getValue(), -1, 0, 205, 512 );
             
-              if( xbox.leftBumper.getValue() ) armDisplay.rotatorAngle = (int) constrain( armDisplay.rotatorAngle - 3*xbox.rightStick.getX(), 0, 1023 );
+              if( xbox.leftBumper.getValue() ) armDisplay.rotatorAngle = (int) constrain( armDisplay.rotatorAngle - 2*xbox.rightStick.getX(), 0, 1023 );
               else armDisplay.wristAngle = constrain( armDisplay.wristAngle += PI/120 * xbox.rightStick.getY(), -radians(150), radians(150) );
             break;
           }
