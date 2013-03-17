@@ -4,6 +4,7 @@ class CommunicationThread extends Thread {
   int wait;
   boolean running;
   boolean serialActive = false;
+  int count = 0;
   
   CommunicationThread( String id, int wait ) {
     this.id = id;
@@ -37,6 +38,7 @@ class CommunicationThread extends Thread {
   }
   
   void receive() {
+    println( armDisplay.arm.links[0].getServoValue() + "\t" + armDisplay.arm.links[1].getServoValue() );
     armDisplay.arm.rotator.actuator.presentPosition = armDisplay.arm.rotator.getServoValue();
     armDisplay.arm.links[0].actuator.presentPosition = armDisplay.arm.links[0].getServoValue();
     armDisplay.arm.links[1].actuator.presentPosition = armDisplay.arm.links[1].getServoValue();
@@ -50,6 +52,7 @@ class CommunicationThread extends Thread {
   }
   
   void quit() {
+    xbee.stop();
     running = false;
     interrupt();
   }

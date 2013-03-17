@@ -106,7 +106,7 @@ class XboxController {
 
 void switchMode() {
     control.armControlMode = !control.armControlMode;
- }
+}
 
 
 
