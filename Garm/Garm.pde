@@ -1,6 +1,7 @@
 import processing.serial.*;
 import procontroll.*;
 import net.java.games.input.*;
+import java.awt.event.*;
 
 Configuration config;
 
@@ -102,7 +103,7 @@ void keyPressed() {
       armDisplay.rotatorAngle -= 100;
     break;
     case ' ':
-      communication.serialActive = !communication.serialActive;
+      control.armControlMode = !control.armControlMode;
     break;
   }
 }

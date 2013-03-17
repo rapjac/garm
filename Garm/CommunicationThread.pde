@@ -38,7 +38,6 @@ class CommunicationThread extends Thread {
   }
   
   void receive() {
-    println( armDisplay.arm.links[0].getServoValue() + "\t" + armDisplay.arm.links[1].getServoValue() );
     armDisplay.arm.rotator.actuator.presentPosition = armDisplay.arm.rotator.getServoValue();
     armDisplay.arm.links[0].actuator.presentPosition = armDisplay.arm.links[0].getServoValue();
     armDisplay.arm.links[1].actuator.presentPosition = armDisplay.arm.links[1].getServoValue();
@@ -47,8 +46,10 @@ class CommunicationThread extends Thread {
   }
   
   void sendInt( int data ) {
+    this.serialActive = true;
     xbee.write( ( data >> 8 ) & 0xFF );
     xbee.write( ( data & 0xFF ) );
+    this.serialActive = false;
   }
   
   void quit() {
