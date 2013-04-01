@@ -97,10 +97,10 @@ void keyPressed() {
       driveDisplay.value0 = constrain( driveDisplay.value0 + 0.2, -1, 1 );
     break;
     case 'r':
-      armDisplay.rotatorAngle += 100;
+      armDisplay.grip++;
     break;
     case 'f':
-      armDisplay.rotatorAngle -= 100;
+      armDisplay.grip--;
     break;
     case ' ':
       control.armControlMode = !control.armControlMode;

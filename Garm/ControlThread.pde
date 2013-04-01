@@ -10,7 +10,7 @@ class ControlThread extends Thread {
   }
   
   void start() {
-    xbox.plug( xbox.rightBumper, "switchMode", "ON_PRESS" );
+     xbox.plug( xbox.rightBumper, "switchMode", "ON_PRESS" );
     addMouseWheelListener(new MouseWheelListener() { 
       public void mouseWheelMoved(MouseWheelEvent mwe) { 
         mouseWheel(mwe.getWheelRotation());
@@ -35,8 +35,10 @@ class ControlThread extends Thread {
               else armDisplay.targetY += 3*xbox.rightStick.getY();
             break;
             case 2:
-              armDisplay.targetX = mouseX - armDisplay.x;
-              armDisplay.targetY = mouseY - armDisplay.y;
+                armDisplay.targetX = mouseX - armDisplay.x;
+                armDisplay.targetY = mouseY - armDisplay.y;
+                if( keyPressed && ( key == 'a' || key == 'A' ) ) armDisplay.rotatorAngle = (int) constrain( armDisplay.rotatorAngle + 3, 0, 1023 );
+                if( keyPressed && ( key == 'd' || key == 'D' ) ) armDisplay.rotatorAngle = (int) constrain( armDisplay.rotatorAngle - 3, 0, 1023 );
             break;
             default:
               armDisplay.targetX += 2*xbox.leftStick.getX();
