@@ -30,7 +30,7 @@ class PidOutput{
   
   void output( float setPoint ){
     if( config.PID_ENABLE ) {
-        if( !Double.isNaN( setPoint ) ) {
+        if( !Float.isNaN( setPoint ) ) {
         float error = setPoint - this.processVar;
         if( error != 0 ) {
         this.integral += error;
