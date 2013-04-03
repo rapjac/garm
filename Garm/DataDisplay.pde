@@ -24,6 +24,7 @@ class DataDisplay {
   void render() {
     drawWindow();
     drawData();
+    drawModeIndicators();
     drawSerialIndicator();
   }
   
@@ -66,6 +67,15 @@ class DataDisplay {
     text( actuator.presentLoad + "kg", textStartX + 65*i++, startY + 20);
     text( actuator.presentSpeed + " rad/s", textStartX + 65*i++, startY + 20);
     //text( actuator.presentPosition, textStartX + 55*i++, startY + 20);
+  }
+  
+  void drawModeIndicators() {
+    for( int i = 0; i < 3; i++ ) {
+      stroke( #121212 );
+      fill( #ACACAC );
+      rectMode( CENTER );
+      rect( this.startX + this.width*(2*i+1)/6, this.startY + this.height*25/32, this.width*5/24, this.height*7/48, 5 );
+    }
   }
   
   void drawSerialIndicator() {

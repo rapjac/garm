@@ -18,7 +18,7 @@ class CommunicationThread extends Thread {
 
   void run() {
     while ( running ) {
-      send();
+      //send();
       receive();
       try {
         sleep((long)(wait));
@@ -57,5 +57,13 @@ class CommunicationThread extends Thread {
     running = false;
     interrupt();
   }
+}
+
+void serialEvent( Serial xbee ) {
+  char c = (char) xbee.read();
+  if( c == 'A' ) {
+    println( "Got A!" );
+    xbee.write( 'B' );
+  } else if( c == 'C' ) println( "Got C!" );
 }
 

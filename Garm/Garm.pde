@@ -26,7 +26,6 @@ void setup() {
   
   // Set Windows Size
   size( 960, 650 );
-  smooth();
   
   // Configuration Settings
   config = new Configuration();
