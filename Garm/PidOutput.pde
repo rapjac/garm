@@ -29,16 +29,18 @@ class PidOutput{
   }
   
   void output( float setPoint ){
-    if( !Double.isNaN( setPoint ) ) {
-      float error = setPoint - this.processVar;
-      if( error != 0 ) {
-      this.integral += error;
-      this.derivative = error - this.previousError;
-      float output = ( this.kP * this.processVar ) + ( this.kI * this.integral ) + ( this.kD * this.derivative );
-      this.previousError = error;
-      this.previousOutput = output;
-      this.processVar = output;
-      } else this.processVar = this.previousOutput;
+    if( config.PID_ENABLE ) {
+        if( !Double.isNaN( setPoint ) ) {
+        float error = setPoint - this.processVar;
+        if( error != 0 ) {
+        this.integral += error;
+        this.derivative = error - this.previousError;
+        float output = ( this.kP * this.processVar ) + ( this.kI * this.integral ) + ( this.kD * this.derivative );
+        this.previousError = error;
+        this.previousOutput = output;
+        this.processVar = output;
+        } else this.processVar = this.previousOutput;
+      }
     }
   }
   

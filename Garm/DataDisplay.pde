@@ -66,7 +66,6 @@ class DataDisplay {
     text( actuator.presentVoltage + "V", textStartX + 65*i++, startY + 20);
     text( actuator.presentLoad + "kg", textStartX + 65*i++, startY + 20);
     text( actuator.presentSpeed + " rad/s", textStartX + 65*i++, startY + 20);
-    //text( actuator.presentPosition, textStartX + 55*i++, startY + 20);
   }
   
   void drawModeIndicators() {

@@ -8,7 +8,7 @@ class DcMotor {
   }
   
   void setMotorSpeed( float setPoint ) {
-    this.motorSpeed.output( constrain( setPoint, -127, 127 ) );
+    this.motorSpeed.output( constrain( setPoint, -255, 255 ) );
   }
   
   int getValue() {

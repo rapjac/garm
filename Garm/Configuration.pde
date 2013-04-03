@@ -2,6 +2,7 @@ class Configuration {
   
   static final boolean DEBUG_MODE = true;
   static final boolean SPECIAL_EFFECTS = true;
+  static final boolean PID_ENABLE = true;
   
   //static final String COM_PORT = "COM10";
   static final String COM_PORT = "COM9";

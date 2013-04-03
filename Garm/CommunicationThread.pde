@@ -36,6 +36,7 @@ class CommunicationThread extends Thread {
       sendInt( armDisplay.arm.links[1].getServoValue() );
       sendInt( armDisplay.arm.links[2].getServoValue() );
       sendInt( armDisplay.arm.gripper.getServoValue() );
+      this.serialActive = false;
     } 
     else this.serialActive = false;
   }
