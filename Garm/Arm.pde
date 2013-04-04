@@ -13,6 +13,8 @@ class Arm {
   
   void update( int rotatorAngle, int x, int y, float wristAngle, int grip ) {
     
+    wristAngle = constrain( wristAngle, -HALF_PI, HALF_PI );
+    
     int a = this.links[1].length;
     int b = this.links[0].length;
     
