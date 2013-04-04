@@ -1,5 +1,8 @@
 class Configuration {
   
+  static final int WINDOW_WIDTH = 960;
+  static final int WINDOW_HEIGHT = 650;
+  
   static final boolean DEBUG_MODE = true;
   static final boolean SPECIAL_EFFECTS = true;
   static final boolean PID_ENABLE = true;

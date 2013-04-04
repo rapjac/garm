@@ -2,7 +2,7 @@ class ControlThread extends Thread {
   String id;
   int wait;
   boolean running;
-  boolean armControlMode;
+  boolean armControlMode = false;
   boolean controllerMode = false;
   
   ControlThread( String id, int wait ) {
@@ -38,8 +38,6 @@ class ControlThread extends Thread {
         }
       } else if( !config.DEBUG_MODE ) driveDisplay.drive.update( xbox.leftStick.getX(), xbox.leftStick.getY() );
       
-      println( armDisplay.targetX + "\t" + armDisplay.targetY );
-      
       armDisplay.arm.update( armDisplay.rotatorAngle, armDisplay.targetX, armDisplay.targetY, armDisplay.wristAngle, armDisplay.grip );
       
       try {
@@ -58,8 +56,10 @@ class ControlThread extends Thread {
     if( armControlMode && !this.controllerMode ) {
       if( mousePressed ) armDisplay.grip = constrain( armDisplay.grip += 20 * delta, 205, 512 );
       else armDisplay.wristAngle = constrain( armDisplay.wristAngle += PI/45 * delta, -radians(150), radians(150) );
-      }
-    } 
+    }
+  }
+  
+  
 }
 
 

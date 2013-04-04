@@ -73,7 +73,7 @@ class DataDisplay {
       stroke( #121212 );
       fill( #ACACAC );
       rectMode( CENTER );
-      rect( this.startX + this.width*(2*i+1)/6, this.startY + this.height*25/32, this.width*5/24, this.height*7/48, 5 );
+      rect( this.startX + this.width*(2*i+1)/6, this.startY + this.height*25/32, this.width*5/24, this.height*7/48, 20 );
     }
   }
   

@@ -18,7 +18,7 @@ class CommunicationThread extends Thread {
 
   void run() {
     while ( running ) {
-      //send();
+      send();
       receive();
       try {
         sleep((long)(wait));

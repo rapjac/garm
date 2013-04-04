@@ -23,12 +23,11 @@ PFont subTitleFont = createFont( "Georgia", 12 );
 PFont displayFont = createFont( "Courier New", 12 );
 
 void setup() {
-  
-  // Set Windows Size
-  size( 960, 650 );
-  
   // Configuration Settings
   config = new Configuration();
+  
+  // Set Windows Size
+  size( config.WINDOW_WIDTH, config.WINDOW_HEIGHT );
   
   // Establish XBee Wireless Serial Communication
   xbee = new Serial( this, config.COM_PORT, config.BAUD_RATE );
@@ -41,9 +40,9 @@ void setup() {
   }
   
   // GUI Elements
-  armDisplay = new ArmDisplay( width*45/64, height*11/32, 480, 384 );
-  driveDisplay = new DriveDisplay( width*45/64, height*27/32, 480, 160 );
-  dataDisplay = new DataDisplay( width*7/32, height*20/32, 350, 448 );
+  armDisplay = new ArmDisplay( width*45/64, height*11/32, width/2, height*3/5 );
+  driveDisplay = new DriveDisplay( width*45/64, height*27/32, width/2, height/4 );
+  dataDisplay = new DataDisplay( width*7/32, height*20/32, width*9/25, height*7/10 );
   
   // Threads
   control = new ControlThread( "control", 10 );
@@ -83,26 +82,37 @@ void renderBackground() {
 
 void keyPressed() {
   switch( key ) {
-    case 'w':
-      driveDisplay.value1 = constrain( driveDisplay.value1 - 0.2, -1, 1 );
+    case '1':
+      armDisplay.setAction(1);
     break;
-    case 'a':
-      driveDisplay.value0 = constrain( driveDisplay.value0 - 0.2, -1, 1 );
+    case '2':
+      armDisplay.setAction(2);
     break;
-    case 's':
-      driveDisplay.value1 = constrain( driveDisplay.value1 + 0.2, -1, 1 );
+    case '3':
+      armDisplay.setAction(3);
     break;
-    case 'd':
-      driveDisplay.value0 = constrain( driveDisplay.value0 + 0.2, -1, 1 );
-    break;
-    case 'r':
-      armDisplay.grip++;
-    break;
-    case 'f':
-      armDisplay.grip--;
+    case '4':
+      armDisplay.setAction(4);
     break;
     case ' ':
       control.armControlMode = !control.armControlMode;
+    break;
+  }
+}
+
+void keyReleased() {
+  switch( key ) {
+    case '1':
+      armDisplay.setAction(0);
+    break;
+    case '2':
+      armDisplay.setAction(0);
+    break;
+    case '3':
+      armDisplay.setAction(0);
+    break;
+    case '4':
+      armDisplay.setAction(0);
     break;
   }
 }

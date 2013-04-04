@@ -1,5 +1,7 @@
 class ArmDisplay {
   
+  PFont displayFont = createFont( "Century Gothic", 16 );
+  
   int width;
   int height;
   int x;
@@ -14,6 +16,8 @@ class ArmDisplay {
   int grip = 512;
   int rotatorAngle = 511;
   float wristAngle;
+  
+  int action = 0;
   
   Arm arm;
   
@@ -32,8 +36,10 @@ class ArmDisplay {
   
   void render() {
     drawWindow();
+    drawActions();
     drawArm();
     drawRotator();
+      
   }
   
   void drawArm() {
@@ -115,14 +121,89 @@ class ArmDisplay {
     noStroke();
     fill( #121212 );
     ellipse( startX, startY, this.width/20, this.width/20 );
+    
+  }
+  
+  void drawActions() {
+    int startX = this.startX + width/4;
+    int startY = this.startY + height*3/4;
+    
+    ellipseMode( CENTER );
+    strokeWeight( 3 );
+    
+    if( control.armControlMode ) {
+      
+      stroke( #676767 );
+      fill( #898989 );
+      ellipse( startX, startY - 30, 20, 20 );
+      ellipse( startX, startY + 30, 20, 20 );
+      ellipse( startX - 30, startY, 20, 20 );
+      ellipse( startX + 30, startY, 20, 20 );
+      
+      fill( #676767 );
+      textFont( displayFont );
+      textAlign( LEFT, CENTER );
+      text( "Grasp", startX + 20, startY - 30  );
+      text( "Place Object", startX + 50, startY );
+      text( "Push Button", startX + 20, startY + 30 );
+      textAlign( RIGHT, CENTER );
+      text( "Reset", startX - 50, startY );
+      
+    } else {
+      stroke( #121212 );
+      ellipseMode( CENTER );
+      if( this.action == 1 ) fill( #F2CE00 );
+      else fill( #E0AC00 );
+      ellipse( startX, startY - 30, 20, 20 );
+      if( this.action == 3 ) fill( #00CE00 );
+      else fill( #00AC00 );
+      ellipse( startX, startY + 30, 20, 20 );
+      if( this.action == 4 ) fill( #5656CE );
+      else fill( #3434AC );
+      ellipse( startX - 30, startY, 20, 20 );
+      if( this.action == 2 ) fill( #CE0000 );
+      else fill( #AC0000 );
+      ellipse( startX + 30, startY, 20, 20 );
+      
+      fill( #121212 );
+      textFont( displayFont );
+      textAlign( LEFT, CENTER );
+      text( "Grasp", startX + 20, startY - 30  );
+      text( "Place Object", startX + 50, startY );
+      text( "Push Button", startX + 20, startY + 30 );
+      textAlign( RIGHT, CENTER );
+      text( "Reset", startX - 50, startY );
+      
+    }
+    
   }
   
   void drawWindow() {   
     rectMode( CORNER );
     stroke( #121212 );
-    strokeWeight(5);
+    strokeWeight( 5 );
     fill( #909090 );
     rect( this.startX, this.startY, this.width, this.height, 20 );
+  }
+  
+  void setAction( int action ) {
+    this.action = action;
+    switch( action ) {
+      case 1:
+        println( "Action 1!" );
+      break;
+      case 2:
+        println( "Action 2!" );
+      break;
+      case 3:
+        println( "Action 3!" );
+      break;
+      case 4:
+        println( "Action 4!" );
+      break;
+      default:
+      break;
+    }
   }
   
 }
