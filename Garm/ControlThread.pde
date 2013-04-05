@@ -33,6 +33,8 @@ class ControlThread extends Thread {
         } else {
           armDisplay.targetX = mouseX - armDisplay.x;
           armDisplay.targetY = mouseY - armDisplay.y;
+          if( mousePressed ) armDisplay.grip = 205;
+          else armDisplay.grip = 512;
           if( keyPressed && ( key == 'a' || key == 'A' ) ) armDisplay.rotatorAngle = (int) constrain( armDisplay.rotatorAngle + 3, 0, 1023 );
           if( keyPressed && ( key == 'd' || key == 'D' ) ) armDisplay.rotatorAngle = (int) constrain( armDisplay.rotatorAngle - 3, 0, 1023 );
         }
@@ -54,8 +56,9 @@ class ControlThread extends Thread {
   
   void mouseWheel( int delta ) {
     if( armControlMode && !this.controllerMode ) {
-      if( mousePressed ) armDisplay.grip = constrain( armDisplay.grip += 20 * delta, 205, 512 );
-      else armDisplay.wristAngle = constrain( armDisplay.wristAngle += PI/45 * delta, -radians(150), radians(150) );
+      //if( mousePressed ) armDisplay.grip = constrain( armDisplay.grip += 20 * delta, 205, 512 );
+      //else
+      armDisplay.wristAngle = constrain( armDisplay.wristAngle += PI/45 * delta, -radians(150), radians(150) );
     }
   }
   

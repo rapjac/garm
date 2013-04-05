@@ -13,8 +13,8 @@ class ArmLink {
   
   void update( float angle ) {
     this.angle = angle;
-    this.x = int((cos(this.angle) * this.length));
-    this.y = int((sin(this.angle) * this.length));
+    this.x = int( (cos(this.angle) * this.length) );
+    this.y = int( (sin(this.angle) * this.length) );
   }
   
   void setPosition( float position ) {

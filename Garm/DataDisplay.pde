@@ -44,7 +44,7 @@ class DataDisplay {
   }
   
   void drawAx12Data( Ax12 actuator, String name, int startX, int startY ) {
-    float angle = PI/6 + map( actuator.presentPosition, 0, 1023, radians(0), radians(300) );
+    float angle = -( PI/6 + map( actuator.presentPosition, 0, 1023, radians(0), radians(300) ) ) + HALF_PI;
     int i = 0;
     int textStartX = this.startX + 55;
     
@@ -54,7 +54,7 @@ class DataDisplay {
     else fill( #00AC00 );
     ellipse( startX, startY, 20, 20 );
     
-    line( startX, startY, startX + 15*cos(-angle+HALF_PI), startY + 15*sin(-angle+HALF_PI) );
+    line( startX, startY, startX + 15*cos( angle ), startY + 15*sin( angle ) );
     fill( #121212 );
     ellipse( startX, startY, 5, 5 );
     fill( #121212 );

@@ -43,11 +43,19 @@ class ArmDisplay {
   }
   
   void drawArm() {
+    
     int x = this.startX + width/2;
     int y = this.startY + height/2;
-    for( int i = 0; i < 3; i++ ){
-      int dx = x + this.arm.links[i].x;
-      int dy = y + this.arm.links[i].y;
+    float angle = 0;
+    float anchor = 0;
+    println( "Expected:\t" + (int) degrees(this.arm.links[0].angle) + "\t" + (int) degrees( this.arm.links[1].angle ) + "\t" + (int) degrees(this.arm.links[2].angle ) + "\t" );
+    print( "Actual:\t" );
+    for( int i = 0; i < 3; i++ ) {
+      angle = -( PI/6 + map( this.arm.links[i].getServoValue(), 0, 1023, radians(0), radians(300) ) ) + HALF_PI + anchor + i*HALF_PI;
+      if( i == 2 ) angle -= HALF_PI;
+      int dx = x + int( this.arm.links[i].length*cos( angle ) );
+      int dy = y + int( this.arm.links[i].length*sin( angle ) );
+            print( (int) degrees( angle ) + "\t" );
       stroke( #232323 );
       strokeWeight( width/32 );
       line( x, y, dx, dy );
@@ -55,17 +63,18 @@ class ArmDisplay {
       strokeWeight( width/80 );
       if( !this.arm.links[i].actuator.led ) fill( #00AC00 );
       else fill( #AC0000 );
-      ellipse( x, y, width/20, width/20 );   
+      ellipse( x, y, width/20, width/20 );
       strokeWeight( width/64 );
       line( x, y, dx, dy );
       noStroke();
       fill( #121212 );
       ellipse( x, y, width/40, width/40 );
+      anchor = angle;
       x = dx;
       y = dy;
-    }
+    } print( "\n" );
+    
     int dist = (int) map( constrain( this.grip, 205, 512 ), 205, 512, 2, width/20 );
-    float angle = this.arm.links[2].angle;
     float gripperTopX = x + dist/2*cos(angle + HALF_PI);
     float gripperTopY = y + dist/2*sin(angle + HALF_PI);
     float gripperBottomX = x - dist/2*cos(angle + HALF_PI);
@@ -109,7 +118,7 @@ class ArmDisplay {
     
     float startX = this.x;
     float startY = this.y + height/2;
-    float angle = PI/6 + map( arm.rotator.getServoValue(), 0, 1023, radians(0), radians(300) );
+    float angle = -( PI/6 + map( arm.rotator.getServoValue(), 0, 1023, radians(0), radians(300) ) ) + HALF_PI;
     
     stroke( #121212 );
     strokeWeight( this.width/80 );
@@ -117,7 +126,7 @@ class ArmDisplay {
     else fill( #AC0000 );
     ellipse( startX, startY, this.width/10, this.width/10 );   
     strokeWeight( this.width/48 );
-    line( startX, startY, startX + this.width/12*cos(-angle+ HALF_PI), startY + this.width/12*sin(-angle+HALF_PI) );
+    line( startX, startY, startX + this.width/12*cos( angle ), startY + this.width/12*sin( angle ) );
     noStroke();
     fill( #121212 );
     ellipse( startX, startY, this.width/20, this.width/20 );
