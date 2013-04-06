@@ -26,21 +26,15 @@ class Arm {
     float D = atan2(y,x);
     float E = D + B + C - PI;
     
-    this.rotator.update( rotatorAngle );
     if( !(Float.isNaN( E ) && Float.isNaN( D + B ) ) ) {
-      this.links[0].update( E );
-      this.links[1].update( D + B );
-      this.links[2].update( links[1].angle + wristAngle );
+      float angle = constrain( (-( E - HALF_PI ) > 0 ? -( E - HALF_PI ) : -( E - HALF_PI ) + TWO_PI), radians(30), radians(330) );
+      this.links[0].setPosition( map( constrain( degrees( angle ) - 30, 60, 195 ), 0, 300, 0, 1023 ) );
+      this.links[1].setPosition( map( constrain( degrees( C)- 30, 20, 150 ), 0, 300, 0, 1023 ) );
+      this.links[2].setPosition( map( degrees( wristAngle ), 150, -150, 0, 1023 ) );
     }
-    this.gripper.update( grip );
-    
-    float angle0 = constrain( (-( E - HALF_PI ) > 0 ? -( E - HALF_PI ) : -( E - HALF_PI ) + TWO_PI), radians(30), radians(330) );
     
     this.rotator.setPosition( (float) rotatorAngle );
-    this.links[0].setPosition( map( constrain( degrees( angle0 ) - 30, 60, 195 ), 0, 300, 0, 1023 ) );
-    this.links[1].setPosition( map( constrain( degrees(C) - 30, 20, 150 ), 0, 300, 0, 1023 ) );
-    this.links[2].setPosition( map( degrees( wristAngle ), 150, -150, 0, 1023 ) );
-    this.gripper.setPosition( grip );
+    this.gripper.setPosition( grip );   
     
   }
   

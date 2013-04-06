@@ -40,13 +40,13 @@ class Particle {
   Particle() {
  
     // set the x and y position
-    x = width/16 + 60;
-    y = height/16 + 30;
+    x = width/8 + 60;
+    y = height*3/32 + 30;
  
     // set the velocity to be a random number between
     // in both x and y directions.
-    velX = random(-4, 4);
-    velY = random(-4, 4);
+    velX = random( -5, 4 );
+    velY = random( -4, 5 );
      
     drag = 0.96;
      

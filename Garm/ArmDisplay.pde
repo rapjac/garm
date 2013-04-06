@@ -48,14 +48,11 @@ class ArmDisplay {
     int y = this.startY + height/2;
     float angle = 0;
     float anchor = 0;
-    println( "Expected:\t" + (int) degrees(this.arm.links[0].angle) + "\t" + (int) degrees( this.arm.links[1].angle ) + "\t" + (int) degrees(this.arm.links[2].angle ) + "\t" );
-    print( "Actual:\t" );
     for( int i = 0; i < 3; i++ ) {
       angle = -( PI/6 + map( this.arm.links[i].getServoValue(), 0, 1023, radians(0), radians(300) ) ) + HALF_PI + anchor + i*HALF_PI;
       if( i == 2 ) angle -= HALF_PI;
       int dx = x + int( this.arm.links[i].length*cos( angle ) );
       int dy = y + int( this.arm.links[i].length*sin( angle ) );
-            print( (int) degrees( angle ) + "\t" );
       stroke( #232323 );
       strokeWeight( width/32 );
       line( x, y, dx, dy );
@@ -72,9 +69,9 @@ class ArmDisplay {
       anchor = angle;
       x = dx;
       y = dy;
-    } print( "\n" );
+    }
     
-    int dist = (int) map( constrain( this.grip, 205, 512 ), 205, 512, 2, width/20 );
+    int dist = (int) map( constrain( this.arm.gripper.getServoValue(), 205, 512 ), 205, 512, 2, width/20 );
     float gripperTopX = x + dist/2*cos(angle + HALF_PI);
     float gripperTopY = y + dist/2*sin(angle + HALF_PI);
     float gripperBottomX = x - dist/2*cos(angle + HALF_PI);
@@ -199,16 +196,12 @@ class ArmDisplay {
     this.action = action;
     switch( action ) {
       case 1:
-        println( "Action 1!" );
       break;
       case 2:
-        println( "Action 2!" );
       break;
       case 3:
-        println( "Action 3!" );
       break;
       case 4:
-        println( "Action 4!" );
       break;
       default:
       break;

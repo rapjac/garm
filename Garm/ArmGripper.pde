@@ -6,10 +6,6 @@ class ArmGripper {
     this.actuator = new Ax12( servoId ) ;
   }
   
-  void update( int grip ) {
-    this.grip = (int) constrain( grip, 205, 512 );
-  }
-  
   void setPosition( float position ) {
     this.actuator.goalPosition.output( position );
   }

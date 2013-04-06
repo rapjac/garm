@@ -69,10 +69,10 @@ void renderTitle() {
   textFont( titleFont );
   textAlign( LEFT, CENTER );
   fill( #868686 );
-  text( "g.arm", width/16, height/16 );
+  text( "g.arm", width/8, height*3/32 );
   fill( #434343 );
   textFont( subTitleFont );
-  text( "Rover Controller Application", width/16 + 45, height/16 + 48 );
+  text( "Rover Controller Application", width/8 + 45, height*3/32 + 48 );
 }
 
 void renderBackground() {

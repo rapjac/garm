@@ -6,10 +6,6 @@ class ArmRotator {
     actuator = new Ax12( servoId );
   }
   
-  void update( int position ) {
-    this.position = constrain( position, 0, 1023 );
-  }
-  
   void setPosition( float position ) {
     this.actuator.goalPosition.output( position );
   }
