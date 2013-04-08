@@ -29,16 +29,11 @@ class CommunicationThread extends Thread {
   }
 
   void send() {
-    if ( xbee.available() > 0 && xbee.read() == config.ARBOTIX_READY_CHAR ) {
-      this.serialActive = true;
-      sendInt( armDisplay.arm.rotator.getServoValue() );
-      sendInt( armDisplay.arm.links[0].getServoValue() );
-      sendInt( armDisplay.arm.links[1].getServoValue() );
-      sendInt( armDisplay.arm.links[2].getServoValue() );
-      sendInt( armDisplay.arm.gripper.getServoValue() );
-      this.serialActive = false;
-    } 
-    else this.serialActive = false;
+    if ( xbee.available() > 0 && (char) xbee.read() == config.ARBOTIX_READY_CHAR ) {
+      println( "Got Request!" );
+      sendAction();
+      //sendDriveValues();
+    }
   }
 
   void receive() {
@@ -47,6 +42,26 @@ class CommunicationThread extends Thread {
     armDisplay.arm.links[1].actuator.presentPosition = armDisplay.arm.links[1].getServoValue();
     armDisplay.arm.links[2].actuator.presentPosition = armDisplay.arm.links[2].getServoValue();
     armDisplay.arm.gripper.actuator.presentPosition = armDisplay.arm.gripper.getServoValue();
+  }
+  
+  void sendAction() {
+    this.serialActive = true;
+    xbee.write( (char) armDisplay.action );
+    armDisplay.action = 0;
+    this.serialActive = false;
+  }
+  
+  void sendArmValues() {
+  }
+  
+  void sendDriveValues() {
+    this.serialActive = true;
+    for( int i = 0; i < 4; i++ ) {
+      if( driveDisplay.drive.motors[i].direction ) xbee.write( '1' );
+      else xbee.write( '0' );
+      xbee.write( driveDisplay.drive.motors[i].getValue() );
+    } 
+    this.serialActive = false;
   }
 
   void sendInt( int data ) {
@@ -59,7 +74,3 @@ class CommunicationThread extends Thread {
     interrupt();
   }
 }
-
-void serialEvent( Serial xbee ) {
-}
-

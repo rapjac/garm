@@ -32,7 +32,6 @@ class DataDisplay {
     int textStartX = this.startX + 50;
     int startX = this.startX + 30;
     int startY = this.startY + 30;
-    
     int i = 0;
     
     drawAx12Data( armDisplay.arm.rotator.actuator, "Rotator", startX, startY + 60*i++ );

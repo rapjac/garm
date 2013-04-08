@@ -141,44 +141,44 @@ class ArmDisplay {
       
       stroke( #676767 );
       fill( #898989 );
-      ellipse( startX, startY - 30, 20, 20 );
-      ellipse( startX, startY + 30, 20, 20 );
-      ellipse( startX - 30, startY, 20, 20 );
-      ellipse( startX + 30, startY, 20, 20 );
+      ellipse( startX, startY - this.width/22, this.width/33, this.width/33 );
+      ellipse( startX, startY + this.width/22, this.width/33, this.width/33 );
+      ellipse( startX - this.width/22, startY, this.width/33, this.width/33 );
+      ellipse( startX + this.width/22, startY, this.width/33, this.width/33 );
       
       fill( #676767 );
       textFont( displayFont );
       textAlign( LEFT, CENTER );
-      text( "Grasp", startX + 20, startY - 30  );
-      text( "Place Object", startX + 50, startY );
-      text( "Push Button", startX + 20, startY + 30 );
+      text( "Grasp", startX + this.width/33, startY - this.width/22  );
+      text( "Place Object", startX + this.width/13, startY );
+      text( "Push Button", startX + this.width/33, startY + this.width/22 );
       textAlign( RIGHT, CENTER );
-      text( "Reset", startX - 50, startY );
+      text( "Reset", startX - this.width/13, startY );
       
     } else {
       stroke( #121212 );
       ellipseMode( CENTER );
       if( this.action == 1 ) fill( #F2CE00 );
       else fill( #E0AC00 );
-      ellipse( startX, startY - 30, 20, 20 );
+      ellipse( startX, startY - this.width/22, this.width/33, this.width/33 );
       if( this.action == 3 ) fill( #00CE00 );
       else fill( #00AC00 );
-      ellipse( startX, startY + 30, 20, 20 );
+      ellipse( startX, startY + this.width/22, this.width/33, this.width/33 );
       if( this.action == 4 ) fill( #5656CE );
       else fill( #3434AC );
-      ellipse( startX - 30, startY, 20, 20 );
+      ellipse( startX - this.width/22, startY, this.width/33, this.width/33 );
       if( this.action == 2 ) fill( #CE0000 );
       else fill( #AC0000 );
-      ellipse( startX + 30, startY, 20, 20 );
+      ellipse( startX + this.width/22, startY, this.width/33, this.width/33 );
       
       fill( #121212 );
       textFont( displayFont );
       textAlign( LEFT, CENTER );
-      text( "Grasp", startX + 20, startY - 30  );
-      text( "Place Object", startX + 50, startY );
-      text( "Push Button", startX + 20, startY + 30 );
+      text( "Grasp", startX + this.width/33, startY - this.width/22  );
+      text( "Place Object", startX + this.width/13, startY );
+      text( "Push Button", startX + this.width/33, startY + this.width/22 );
       textAlign( RIGHT, CENTER );
-      text( "Reset", startX - 50, startY );
+      text( "Reset", startX - this.width/13, startY );
       
     }
     
@@ -194,18 +194,6 @@ class ArmDisplay {
   
   void setAction( int action ) {
     this.action = action;
-    switch( action ) {
-      case 1:
-      break;
-      case 2:
-      break;
-      case 3:
-      break;
-      case 4:
-      break;
-      default:
-      break;
-    }
   }
   
 }

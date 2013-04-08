@@ -3,7 +3,7 @@ class ControlThread extends Thread {
   int wait;
   boolean running;
   boolean armControlMode = false;
-  boolean controllerMode = false;
+  boolean controllerMode = true;
   
   ControlThread( String id, int wait ) {
     this.id = id;
@@ -11,7 +11,13 @@ class ControlThread extends Thread {
   }
   
   void start() {
-    if( !config.DEBUG_MODE ) xbox.plug( xbox.rightBumper, "switchMode", "ON_PRESS" );
+    if( !config.DEBUG_MODE ) {
+      xbox.plug( xbox.rightBumper, "switchMode", "ON_PRESS" );
+      xbox.plug( xbox.y, "setAction1", "ON_PRESS" );
+      xbox.plug( xbox.b, "setAction2", "ON_PRESS" );
+      xbox.plug( xbox.a, "setAction3", "ON_PRESS" );
+      xbox.plug( xbox.x, "setAction4", "ON_PRESS" );
+    }
     addMouseWheelListener(new MouseWheelListener() { 
       public void mouseWheelMoved(MouseWheelEvent mwe) { 
         mouseWheel(mwe.getWheelRotation());
@@ -64,5 +70,3 @@ class ControlThread extends Thread {
   
   
 }
-
-

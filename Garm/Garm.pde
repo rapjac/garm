@@ -1,3 +1,4 @@
+import processing.video.*;
 import processing.serial.*;
 import procontroll.*;
 import net.java.games.input.*;
@@ -18,9 +19,9 @@ ControllIO io;
 ControllDevice device;
 XboxController xbox;
 
-PFont titleFont = createFont( "Impact", 80 );
-PFont subTitleFont = createFont( "Georgia", 12 );
-PFont displayFont = createFont( "Courier New", 12 );
+PFont titleFont = createFont( "Impact", config.WINDOW_WIDTH/12  );
+PFont subTitleFont = createFont( "Georgia", config.WINDOW_WIDTH/60 );
+PFont displayFont = createFont( "Courier New", config.WINDOW_WIDTH/60 );
 
 void setup() {
   // Configuration Settings
@@ -48,7 +49,7 @@ void setup() {
   control = new ControlThread( "control", 10 );
   control.start();
   
-  communication = new CommunicationThread( "communication", 10 );
+  communication = new CommunicationThread( "communication", 20 );
   communication.start();
   
 }
@@ -63,6 +64,7 @@ void render() {
   armDisplay.render();
   driveDisplay.render();
   dataDisplay.render();
+  
 }
 
 void renderTitle() {
@@ -72,7 +74,7 @@ void renderTitle() {
   text( "g.arm", width/8, height*3/32 );
   fill( #434343 );
   textFont( subTitleFont );
-  text( "Rover Controller Application", width/8 + 45, height*3/32 + 48 );
+  text( "Rover Controller Application", width/8 + config.WINDOW_WIDTH/21, height*3/32 + config.WINDOW_HEIGHT/13 );
 }
 
 void renderBackground() {

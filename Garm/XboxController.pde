@@ -108,5 +108,21 @@ void switchMode() {
     control.armControlMode = !control.armControlMode;
 }
 
+void setAction1() {
+  armDisplay.setAction( 1 );
+}
+
+void setAction2() {
+  armDisplay.setAction( 2 );
+}
+
+void setAction3() {
+  armDisplay.setAction( 3 );
+}
+
+void setAction4() {
+  armDisplay.setAction( 4 );
+}
+
 
 
