@@ -41,7 +41,7 @@ class PidOutput{
         this.processVar = output;
         } else this.processVar = this.previousOutput;
       }
-    }
+    } else this.processVar = setPoint;
   }
   
 }

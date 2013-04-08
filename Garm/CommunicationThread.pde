@@ -61,10 +61,5 @@ class CommunicationThread extends Thread {
 }
 
 void serialEvent( Serial xbee ) {
-  char c = (char) xbee.read();
-  if( c == 'A' ) {
-    println( "Got A!" );
-    xbee.write( 'B' );
-  } else if( c == 'C' ) println( "Got C!" );
 }
 
