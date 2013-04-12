@@ -30,12 +30,13 @@ class ArmDisplay {
     this.startX = this.x - this.width/2;
     this.startY = this.y - this.height/2;
     
-    int[] lengths = { width/9, width/8, width/13 };
+    int[] lengths = { width/18, width/16, width/26 };
     this.arm = new Arm( lengths );
   }
   
   void render() {
     drawWindow();
+    drawLiveFeed();
     drawActions();
     drawArm();
     drawRotator();
@@ -44,8 +45,8 @@ class ArmDisplay {
   
   void drawArm() {
     
-    int x = this.startX + width/2;
-    int y = this.startY + height/2;
+    int x = this.startX + width*3/4;
+    int y = this.startY + height*3/4;
     float angle = 0;
     float anchor = 0;
     for( int i = 0; i < 3; i++ ) {
@@ -54,24 +55,24 @@ class ArmDisplay {
       int dx = x + int( this.arm.links[i].length*cos( angle ) );
       int dy = y + int( this.arm.links[i].length*sin( angle ) );
       stroke( #232323 );
-      strokeWeight( width/32 );
+      strokeWeight( width/64 );
       line( x, y, dx, dy );
       stroke( #121212 );
-      strokeWeight( width/80 );
+      strokeWeight( width/160 );
       if( !this.arm.links[i].actuator.led ) fill( #00AC00 );
       else fill( #AC0000 );
-      ellipse( x, y, width/20, width/20 );
-      strokeWeight( width/64 );
+      ellipse( x, y, width/40, width/40 );
+      strokeWeight( width/128 );
       line( x, y, dx, dy );
       noStroke();
       fill( #121212 );
-      ellipse( x, y, width/40, width/40 );
+      ellipse( x, y, width/80, width/80 );
       anchor = angle;
       x = dx;
       y = dy;
     }
     
-    int dist = (int) map( constrain( this.arm.gripper.getServoValue(), 205, 512 ), 205, 512, 2, width/20 );
+    int dist = (int) map( constrain( this.arm.gripper.getServoValue(), 205, 512 ), 205, 512, 2, width/40 );
     float gripperTopX = x + dist/2*cos(angle + HALF_PI);
     float gripperTopY = y + dist/2*sin(angle + HALF_PI);
     float gripperBottomX = x - dist/2*cos(angle + HALF_PI);
@@ -80,34 +81,34 @@ class ArmDisplay {
     noStroke();
     fill(#121212);
     quad(
-      gripperTopX - this.width/64*cos(angle),
-      gripperTopY - this.width/64*sin(angle),
-      gripperTopX + this.width/16*cos(angle),
-      gripperTopY + this.width/16*sin(angle),
-      gripperTopX + this.width/16*cos(angle) + this.width/128*cos(angle + HALF_PI),
-      gripperTopY + this.width/16*sin(angle) + this.width/128*sin(angle + HALF_PI),
-      gripperTopX + this.width/40*cos(angle + HALF_PI),
-      gripperTopY + this.width/40*sin(angle + HALF_PI)
+      gripperTopX - this.width/128*cos(angle),
+      gripperTopY - this.width/128*sin(angle),
+      gripperTopX + this.width/32*cos(angle),
+      gripperTopY + this.width/32*sin(angle),
+      gripperTopX + this.width/32*cos(angle) + this.width/256*cos(angle + HALF_PI),
+      gripperTopY + this.width/32*sin(angle) + this.width/256*sin(angle + HALF_PI),
+      gripperTopX + this.width/80*cos(angle + HALF_PI),
+      gripperTopY + this.width/80*sin(angle + HALF_PI)
     );
     quad(
-      gripperBottomX - width/64*cos(angle),
-      gripperBottomY - width/64*sin(angle),
-      gripperBottomX + width/16*cos(angle),
-      gripperBottomY + width/16*sin(angle),
-      gripperBottomX + width/16*cos(angle) - width/128*cos(angle + HALF_PI),
-      gripperBottomY + width/16*sin(angle) - width/128*sin(angle + HALF_PI),
-      gripperBottomX - width/40*cos(angle + HALF_PI),
-      gripperBottomY - width/40*sin(angle + HALF_PI)
+      gripperBottomX - width/128*cos(angle),
+      gripperBottomY - width/128*sin(angle),
+      gripperBottomX + width/32*cos(angle),
+      gripperBottomY + width/32*sin(angle),
+      gripperBottomX + width/32*cos(angle) - width/256*cos(angle + HALF_PI),
+      gripperBottomY + width/32*sin(angle) - width/256*sin(angle + HALF_PI),
+      gripperBottomX - width/80*cos(angle + HALF_PI),
+      gripperBottomY - width/80*sin(angle + HALF_PI)
     );
     
     stroke( #121212 );
-    strokeWeight( width/80 );
+    strokeWeight( width/160 );
     if( !this.arm.gripper.actuator.led ) fill( #00AC00 );
     else fill( #AC0000 );
-    ellipse( x, y, width/20, width/20 );   
+    ellipse( x, y, width/40, width/40 );   
     noStroke();
     fill( #121212 );
-    ellipse( x, y, width/40, width/40 );
+    ellipse( x, y, width/80, width/80 );
     
   }
   
@@ -128,6 +129,15 @@ class ArmDisplay {
     fill( #121212 );
     ellipse( startX, startY, this.width/20, this.width/20 );
     
+  }
+  
+  void drawLiveFeed() {
+    if( camera.available() ) camera.read();
+    set( armDisplay.startX, armDisplay.startY, camera );
+    stroke( #121212 );
+    strokeWeight( 5 );
+    noFill();
+    rect( this.startX, this.startY, this.width, this.height, 20 );
   }
   
   void drawActions() {

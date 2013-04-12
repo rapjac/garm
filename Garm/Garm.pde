@@ -19,6 +19,8 @@ ControllIO io;
 ControllDevice device;
 XboxController xbox;
 
+Capture camera;
+
 PFont titleFont = createFont( "Impact", config.WINDOW_WIDTH/12  );
 PFont subTitleFont = createFont( "Georgia", config.WINDOW_WIDTH/60 );
 PFont displayFont = createFont( "Courier New", config.WINDOW_WIDTH/60 );
@@ -49,9 +51,12 @@ void setup() {
   control = new ControlThread( "control", 10 );
   control.start();
   
-  communication = new CommunicationThread( "communication", 20 );
+  communication = new CommunicationThread( "communication", 10 );
   communication.start();
   
+  camera = new Capture( this, Capture.list()[1] );
+  camera.start();
+  background( #ACACAC );
 }
 
 void draw() {

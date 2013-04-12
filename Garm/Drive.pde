@@ -17,28 +17,28 @@ class Drive {
         for( int i = 0; i < 4; i++ ) motors[i].setMotorSpeed( 0 );
         break;
       case 1:
-        motors[0].setMotorSpeed( 255*cos(2*angle)*magnitude );
-        motors[1].setMotorSpeed( -255*magnitude );
-        motors[2].setMotorSpeed( -255*cos(2*angle)*magnitude );
-        motors[3].setMotorSpeed( 255*magnitude );
+        motors[0].setMotorSpeed( 127*cos(2*angle)*magnitude );
+        motors[1].setMotorSpeed( -127*magnitude );
+        motors[2].setMotorSpeed( -127*cos(2*angle)*magnitude );
+        motors[3].setMotorSpeed( 127*magnitude );
         break;
       case 2:
-        motors[0].setMotorSpeed( -255*magnitude );
-        motors[1].setMotorSpeed( 255*cos(2*angle)*magnitude );
-        motors[2].setMotorSpeed( 255*magnitude );
-        motors[3].setMotorSpeed( -255*cos(2*angle)*magnitude );
+        motors[0].setMotorSpeed( -127*magnitude );
+        motors[1].setMotorSpeed( 127*cos(2*angle)*magnitude );
+        motors[2].setMotorSpeed( 127*magnitude );
+        motors[3].setMotorSpeed( -127*cos(2*angle)*magnitude );
         break;
       case 3:
-        motors[0].setMotorSpeed( -255*cos(2*angle)*magnitude );
-        motors[1].setMotorSpeed( 255*magnitude );
-        motors[2].setMotorSpeed( 255*cos(2*angle)*magnitude );
-        motors[3].setMotorSpeed( -255*magnitude );
+        motors[0].setMotorSpeed( -127*cos(2*angle)*magnitude );
+        motors[1].setMotorSpeed( 127*magnitude );
+        motors[2].setMotorSpeed( 127*cos(2*angle)*magnitude );
+        motors[3].setMotorSpeed( -127*magnitude );
         break;
       case 4:
-        motors[0].setMotorSpeed( 255*magnitude );
-        motors[1].setMotorSpeed( -255*cos(2*angle)*magnitude );
-        motors[2].setMotorSpeed( -255*magnitude );
-        motors[3].setMotorSpeed( 255*cos(2*angle)*magnitude );
+        motors[0].setMotorSpeed( 127*magnitude );
+        motors[1].setMotorSpeed( -127*cos(2*angle)*magnitude );
+        motors[2].setMotorSpeed( -127*magnitude );
+        motors[3].setMotorSpeed( 127*cos(2*angle)*magnitude );
         break;
     }
   }

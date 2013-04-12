@@ -33,10 +33,7 @@ class DriveDisplay {
     for( int i = 0; i < 4; i++ ) {
       int x = startX + this.width*(i+1)/8;
       int y = this.y;
-      int motorValue = this.drive.motors[i].getValue();
-      if( this.drive.motors[i].direction ) motorValue = -motorValue;
-      if( i > 1 ) motorValue = (int) map( motorValue, -255, 255, (this.height*3/8), -(this.height*3/8) );
-      else motorValue = (int) map( motorValue, -255, 255, -(this.height*3/8), (this.height*3/8) );
+      int motorValue = int( ( i < 2 ? 1 : -1 ) * map( this.drive.motors[i].getValue(), -127, 127, -(this.height*3/8), (this.height*3/8) ) );
       
       strokeWeight( 3 );
       noStroke();

@@ -12,6 +12,7 @@ class CommunicationThread extends Thread {
   }
 
   void start() {
+    xbee.clear();
     this.running = true;
     super.start();
   }
@@ -30,10 +31,14 @@ class CommunicationThread extends Thread {
 
   void send() {
     if ( xbee.available() > 0 && (char) xbee.read() == config.ARBOTIX_READY_CHAR ) {
-      println( "Got Request!" );
-      sendAction();
-      //sendDriveValues();
+      sendHeader();
+      sendArmData();
+      //sendActionData();
+      sendDriveData();
+      //sendParity();
+      xbee.write( '\0' );
     }
+    xbee.clear();
   }
 
   void receive() {
@@ -44,24 +49,44 @@ class CommunicationThread extends Thread {
     armDisplay.arm.gripper.actuator.presentPosition = armDisplay.arm.gripper.getServoValue();
   }
   
-  void sendAction() {
+  void sendHeader() {
+    xbee.write( 'G' );
+    xbee.write( 'R' );
+    xbee.write( 'M' );
+  }
+  
+  void sendActionData() {
     this.serialActive = true;
     xbee.write( (char) armDisplay.action );
     armDisplay.action = 0;
     this.serialActive = false;
   }
   
-  void sendArmValues() {
+  void sendArmData() {
+    sendInt( armDisplay.arm.rotator.getServoValue() );
+    sendInt( armDisplay.arm.links[0].getServoValue() );
+    sendInt( armDisplay.arm.links[1].getServoValue() );
+    sendInt( armDisplay.arm.links[2].getServoValue() );
+    sendInt( armDisplay.arm.gripper.getServoValue() );
+    println( armDisplay.arm.gripper.getServoValue() );
   }
   
-  void sendDriveValues() {
+  void sendDriveData() {
     this.serialActive = true;
     for( int i = 0; i < 4; i++ ) {
-      if( driveDisplay.drive.motors[i].direction ) xbee.write( '1' );
-      else xbee.write( '0' );
       xbee.write( driveDisplay.drive.motors[i].getValue() );
     } 
     this.serialActive = false;
+  }
+  
+  void sendParity() {
+    int sum = armDisplay.action;
+    byte parity = 0;
+    for( int i = 0; i < 4; i++ ) sum += driveDisplay.drive.motors[i].getValue();
+    parity = (byte) ( ( sum % 2 ) == 0 ? 0 : 1 );
+    println( sum );
+    println( parity );
+    xbee.write( parity );
   }
 
   void sendInt( int data ) {

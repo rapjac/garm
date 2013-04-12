@@ -13,6 +13,8 @@ class Configuration {
   static final String COM_PORT = "COM3";
   static final int BAUD_RATE = 38400;
   
+    
+  static final String CAPTURE_DEVICE = "";
   static final String GAMEPAD = "Controller (XBOX 360 For Windows)";
   //static final String GAMEPAD = "Controller (Xbox 360 Wireless Receiver for Windows)";
   static final float INPUT_TOLERANCE = 0.10;
