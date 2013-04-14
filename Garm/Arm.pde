@@ -11,6 +11,14 @@ class Arm {
     for( int i = 0; i < this.links.length; i++ ) this.links[i] = new ArmLink( lengths[i], i+2 );
   }
   
+  void pose( int rotatorAngle, int link0Angle, int link1Angle, int link2Angle, int gripperAngle ) {
+    this.rotator.setPosition( constrain( rotatorAngle, 0, 1023 ) );
+    this.links[0].setPosition( constrain( link0Angle, 0, 1023 ) );
+    this.links[1].setPosition( constrain( link1Angle, 0, 1023 ) );
+    this.links[2].setPosition( constrain( link2Angle, 0, 1023 ) );
+    this.gripper.setPosition( constrain( gripperAngle, 0, 1023 ) );
+  }
+  
   void update( int rotatorAngle, int x, int y, float wristAngle, int grip ) {
     
     wristAngle = constrain( wristAngle, -HALF_PI, HALF_PI );
@@ -28,7 +36,7 @@ class Arm {
     
     if( !(Float.isNaN( E ) && Float.isNaN( D + B ) ) ) {
       float angle = constrain( (-( E - HALF_PI ) > 0 ? -( E - HALF_PI ) : -( E - HALF_PI ) + TWO_PI), radians(30), radians(330) );
-      this.links[0].setPosition( map( constrain( degrees( angle ) - 30, 60, 195 ), 0, 300, 0, 1023 ) );
+      this.links[0].setPosition( map( constrain( degrees( angle ) - 30, 10, 195 ), 0, 300, 0, 1023 ) );
       this.links[1].setPosition( map( constrain( degrees( C)- 30, 20, 150 ), 0, 300, 0, 1023 ) );
       this.links[2].setPosition( map( degrees( wristAngle ), 150, -150, 0, 1023 ) );
     }

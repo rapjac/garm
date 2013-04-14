@@ -1,5 +1,7 @@
 class DataDisplay {
   
+  PFont displayFont = createFont( "Century Gothic", 16 );
+  
   int width;
   int height;
   int x;
@@ -7,6 +9,8 @@ class DataDisplay {
   
   int startX = 0;
   int startY = 0;
+  
+  int action = 0;
   
   PFont headerFont = createFont( "Courier New Bold", 14 );
   PFont dataFont = createFont( "Courier New", 14 );
@@ -24,7 +28,7 @@ class DataDisplay {
   void render() {
     drawWindow();
     drawData();
-    drawModeIndicators();
+    drawActions();
     drawSerialIndicator();
   }
   
@@ -34,11 +38,11 @@ class DataDisplay {
     int startY = this.startY + 30;
     int i = 0;
     
-    drawAx12Data( armDisplay.arm.rotator.actuator, "Rotator", startX, startY + 60*i++ );
-    drawAx12Data( armDisplay.arm.links[0].actuator, "Link 0", startX, startY + 60*i++ );
-    drawAx12Data( armDisplay.arm.links[1].actuator, "Link 1", startX, startY + 60*i++ );
-    drawAx12Data( armDisplay.arm.links[2].actuator, "Link 2", startX, startY + 60*i++ );
-    drawAx12Data( armDisplay.arm.gripper.actuator, "Gripper", startX, startY + 60*i++ );
+    drawAx12Data( arm.rotator.actuator, "Rotator", startX, startY + 60*i++ );
+    drawAx12Data( arm.links[0].actuator, "Link 0", startX, startY + 60*i++ );
+    drawAx12Data( arm.links[1].actuator, "Link 1", startX, startY + 60*i++ );
+    drawAx12Data( arm.links[2].actuator, "Link 2", startX, startY + 60*i++ );
+    drawAx12Data( arm.gripper.actuator, "Gripper", startX, startY + 60*i++ );
     
   }
   
@@ -74,6 +78,44 @@ class DataDisplay {
       rectMode( CENTER );
       rect( this.startX + this.width*(2*i+1)/6, this.startY + this.height*25/32, this.width*5/24, this.height*7/48, 20 );
     }
+  }
+  
+  void drawActions() {
+    int startX = this.x;
+    int startY = this.startY + this.height*25/32;
+    
+    ellipseMode( CENTER );
+    strokeWeight( 3 );
+    
+    if( control.armControlMode ) {
+      
+    } else {
+      stroke( #121212 );
+      ellipseMode( CENTER );
+      if( this.action == 1 ) fill( #F2CE00 );
+      else fill( #E0AC00 );
+      ellipse( startX, startY - 30, 20, 20 );
+      if( this.action == 3 ) fill( #00CE00 );
+      else fill( #00AC00 );
+      ellipse( startX + 30, startY, 20, 20 );
+      if( this.action == 4 ) fill( #5656CE );
+      else fill( #3434AC );
+      ellipse( startX, startY + 30, 20, 20 );
+      if( this.action == 2 ) fill( #CE0000 );
+      else fill( #AC0000 );
+      ellipse( startX - 30, startY, 20, 20 );
+      
+      fill( #121212 );
+      textFont( displayFont );
+      textAlign( LEFT, CENTER );
+      text( "   Grasp", startX, startY - 30 );
+      text( "   Place Object", startX + 30, startY );
+      text( "   Push Button", startX, startY + 30 );
+      textAlign( RIGHT, CENTER );
+      text( "Reset   ", startX - 30, startY );
+      
+    }
+    
   }
   
   void drawSerialIndicator() {

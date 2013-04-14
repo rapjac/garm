@@ -6,12 +6,15 @@ import java.awt.event.*;
 
 Configuration config;
 
-ControlThread control;
-CommunicationThread communication;
+Arm arm;
+Drive drive;
 
 ArmDisplay armDisplay;
 DriveDisplay driveDisplay;
 DataDisplay dataDisplay;
+
+ControlThread control;
+CommunicationThread communication;
 
 Serial xbee;
 
@@ -43,9 +46,14 @@ void setup() {
   }
   
   // GUI Elements
-  armDisplay = new ArmDisplay( width*45/64, height*11/32, width/2, height*3/5 );
+  armDisplay = new ArmDisplay( width*45/64, height*11/32, width/2, width/8*3 );
   driveDisplay = new DriveDisplay( width*45/64, height*27/32, width/2, height/4 );
   dataDisplay = new DataDisplay( width*7/32, height*20/32, width*9/25, height*7/10 );
+  
+  // Models
+  int[] lengths = { armDisplay.width/18, armDisplay.width/16, armDisplay.width/26 };
+  arm = new Arm( lengths );
+  drive = new Drive();
   
   // Threads
   control = new ControlThread( "control", 10 );
@@ -54,7 +62,8 @@ void setup() {
   communication = new CommunicationThread( "communication", 10 );
   communication.start();
   
-  camera = new Capture( this, Capture.list()[1] );
+  camera = new Capture( this, config.VIDEO_FEED );
+  println( Capture.list() );
   camera.start();
   background( #ACACAC );
 }

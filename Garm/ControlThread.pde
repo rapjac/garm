@@ -5,6 +5,9 @@ class ControlThread extends Thread {
   boolean armControlMode = false;
   boolean controllerMode = true;
   
+  int cameraX = 127;
+  int cameraY = 127;
+  
   ControlThread( String id, int wait ) {
     this.id = id;
     this.wait = wait;
@@ -30,7 +33,7 @@ class ControlThread extends Thread {
     while( running ) {
       if( this.armControlMode ) {
         if( this.controllerMode || !config.DEBUG_MODE ) {
-          driveDisplay.drive.update( 0, 0 );
+          drive.update( 0, 0 );
           armDisplay.targetX += 2*xbox.leftStick.getX();
           armDisplay.targetY += 2*xbox.leftStick.getY();
           armDisplay.grip = (int) map( xbox.rightTrigger.getValue(), -1, 0, 205, 512 );
@@ -44,9 +47,15 @@ class ControlThread extends Thread {
           if( keyPressed && ( key == 'a' || key == 'A' ) ) armDisplay.rotatorAngle = (int) constrain( armDisplay.rotatorAngle + 3, 0, 1023 );
           if( keyPressed && ( key == 'd' || key == 'D' ) ) armDisplay.rotatorAngle = (int) constrain( armDisplay.rotatorAngle - 3, 0, 1023 );
         }
-      } else if( !config.DEBUG_MODE ) driveDisplay.drive.update( xbox.leftStick.getX(), xbox.leftStick.getY() );
+      } else {
+        if( !config.DEBUG_MODE ) {
+          drive.update( xbox.leftStick.getX(), xbox.leftStick.getY() );
+          this.cameraX = (int) map( xbox.rightStick.getX(), -1, 1, 255, 0 );
+          this.cameraY = (int) map( xbox.rightStick.getY(), -1, 1, 0, 255 );
+        }
+      }
       
-      armDisplay.arm.update( armDisplay.rotatorAngle, armDisplay.targetX, armDisplay.targetY, armDisplay.wristAngle, armDisplay.grip );
+      arm.update( armDisplay.rotatorAngle, armDisplay.targetX, armDisplay.targetY, armDisplay.wristAngle, armDisplay.grip );
       
       try {
         sleep((long)(wait));

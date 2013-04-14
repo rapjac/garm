@@ -35,18 +35,18 @@ class CommunicationThread extends Thread {
       sendArmData();
       //sendActionData();
       sendDriveData();
-      //sendParity();
+      sendCameraData();
       xbee.write( '\0' );
     }
     xbee.clear();
   }
 
   void receive() {
-    armDisplay.arm.rotator.actuator.presentPosition = armDisplay.arm.rotator.getServoValue();
-    armDisplay.arm.links[0].actuator.presentPosition = armDisplay.arm.links[0].getServoValue();
-    armDisplay.arm.links[1].actuator.presentPosition = armDisplay.arm.links[1].getServoValue();
-    armDisplay.arm.links[2].actuator.presentPosition = armDisplay.arm.links[2].getServoValue();
-    armDisplay.arm.gripper.actuator.presentPosition = armDisplay.arm.gripper.getServoValue();
+    arm.rotator.actuator.presentPosition = arm.rotator.getServoValue();
+    arm.links[0].actuator.presentPosition = arm.links[0].getServoValue();
+    arm.links[1].actuator.presentPosition = arm.links[1].getServoValue();
+    arm.links[2].actuator.presentPosition = arm.links[2].getServoValue();
+    arm.gripper.actuator.presentPosition = arm.gripper.getServoValue();
   }
   
   void sendHeader() {
@@ -63,30 +63,24 @@ class CommunicationThread extends Thread {
   }
   
   void sendArmData() {
-    sendInt( armDisplay.arm.rotator.getServoValue() );
-    sendInt( armDisplay.arm.links[0].getServoValue() );
-    sendInt( armDisplay.arm.links[1].getServoValue() );
-    sendInt( armDisplay.arm.links[2].getServoValue() );
-    sendInt( armDisplay.arm.gripper.getServoValue() );
-    println( armDisplay.arm.gripper.getServoValue() );
+    sendInt( arm.rotator.getServoValue() );
+    sendInt( arm.links[0].getServoValue() );
+    sendInt( arm.links[1].getServoValue() );
+    sendInt( arm.links[2].getServoValue() );
+    sendInt( arm.gripper.getServoValue() );
   }
   
   void sendDriveData() {
     this.serialActive = true;
     for( int i = 0; i < 4; i++ ) {
-      xbee.write( driveDisplay.drive.motors[i].getValue() );
+      xbee.write( drive.motors[i].getValue() );
     } 
     this.serialActive = false;
   }
   
-  void sendParity() {
-    int sum = armDisplay.action;
-    byte parity = 0;
-    for( int i = 0; i < 4; i++ ) sum += driveDisplay.drive.motors[i].getValue();
-    parity = (byte) ( ( sum % 2 ) == 0 ? 0 : 1 );
-    println( sum );
-    println( parity );
-    xbee.write( parity );
+  void sendCameraData() {
+    xbee.write( (char) control.cameraX );
+    xbee.write( (char) control.cameraY );
   }
 
   void sendInt( int data ) {
