@@ -59,11 +59,10 @@ void setup() {
   control = new ControlThread( "control", 10 );
   control.start();
   
-  communication = new CommunicationThread( "communication", 10 );
+  communication = new CommunicationThread( "communication", 5 );
   communication.start();
   
   camera = new Capture( this, config.VIDEO_FEED );
-  println( Capture.list() );
   camera.start();
   background( #ACACAC );
 }
