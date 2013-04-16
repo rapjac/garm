@@ -22,8 +22,6 @@ ControllIO io;
 ControllDevice device;
 XboxController xbox;
 
-Capture camera;
-
 PFont titleFont = createFont( "Impact", config.WINDOW_WIDTH/12  );
 PFont subTitleFont = createFont( "Georgia", config.WINDOW_WIDTH/60 );
 PFont displayFont = createFont( "Courier New", config.WINDOW_WIDTH/60 );
@@ -51,7 +49,7 @@ void setup() {
   dataDisplay = new DataDisplay( width*7/32, height*20/32, width*9/25, height*7/10 );
   
   // Models
-  int[] lengths = { armDisplay.width/18, armDisplay.width/16, armDisplay.width/26 };
+  int[] lengths = { armDisplay.width/9, armDisplay.width/8, armDisplay.width/13 };
   arm = new Arm( lengths );
   drive = new Drive();
   
@@ -62,9 +60,6 @@ void setup() {
   communication = new CommunicationThread( "communication", 5 );
   communication.start();
   
-  camera = new Capture( this, config.VIDEO_FEED );
-  camera.start();
-  background( #ACACAC );
 }
 
 void draw() {

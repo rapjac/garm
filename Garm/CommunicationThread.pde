@@ -33,7 +33,6 @@ class CommunicationThread extends Thread {
     if ( xbee.available() > 0 && (char) xbee.read() == config.ARBOTIX_READY_CHAR ) {
       sendHeader();
       sendArmData();
-      //sendActionData();
       sendDriveData();
       sendCameraData();
       xbee.write( '\0' );

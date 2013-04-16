@@ -10,8 +10,6 @@ class Configuration {
   static final boolean SPECIAL_EFFECTS = true;
   static final boolean PID_ENABLE = false;
   
-  static final String VIDEO_FEED = "name=USB 2861 Device,size=640x480,fps=30";
-  
   // XBEE:
   // Ultrabook: COM7
   // Giles's PC: COM10
