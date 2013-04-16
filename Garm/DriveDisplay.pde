@@ -22,6 +22,7 @@ class DriveDisplay {
   void render() {
     drawWindow();
     drawSliders();
+    drawMaxPower();
   }
   
   void drawSliders() {
@@ -49,6 +50,29 @@ class DriveDisplay {
       fill( #EF1212 );
       rect( x, y - motorValue, this.width/32 + 16, 10, 3 );
     }
+  }
+  
+  void drawMaxPower() {
+    int radius = this.width*3/16;
+    int startX = this.startX + this.width*3/4;
+    int startY = this.y;
+    ellipseMode( CENTER );
+    stroke( #121212 );
+    strokeWeight( 6 );
+    fill( #454545 );
+    ellipse( startX, startY, radius, radius );
+    noStroke();
+    fill( #008A00 );
+    arc( startX, startY, radius - 5, radius - 5, -HALF_PI, map( drive.maxPower, 0, 127, 0, TWO_PI ) - HALF_PI, PIE );
+    stroke( #121212 );
+    strokeWeight( 6 );
+    fill( #00AC00 );
+    ellipse( startX, startY, this.width/12, this.width/12 );
+    strokeWeight( 10 );
+    line( startX, startY, startX, startY - this.width/10 );
+    noStroke();
+    fill( #121212 );
+    ellipse( startX, startY, this.width/24, this.width/24 );
   }
   
   void drawWindow() {

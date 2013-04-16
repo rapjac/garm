@@ -50,8 +50,11 @@ class ControlThread extends Thread {
       } else {
         if( !config.DEBUG_MODE ) {
           drive.update( xbox.leftStick.getX(), xbox.leftStick.getY() );
-          this.cameraX = (int) map( xbox.rightStick.getX(), -1, 1, 255, 0 );
-          this.cameraY = (int) map( xbox.rightStick.getY(), -1, 1, 0, 255 );
+          if( xbox.rightClick.getValue() ) drive.maxPower = constrain( drive.maxPower -= xbox.rightStick.getY(), 0, 127 );
+          else {
+            this.cameraX = (int) map( xbox.rightStick.getX(), -1, 1, 255, 0 );
+            this.cameraY = (int) map( xbox.rightStick.getY(), -1, 1, 0, 255 );
+          }
         }
       }
       
