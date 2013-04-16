@@ -8,13 +8,6 @@ class ArmDisplay {
   int startX = 0;
   int startY = 0;
   
-  int targetX = 30;
-  int targetY = -45;
-  
-  int grip = 512;
-  int rotatorAngle = 511;
-  float wristAngle;
-  
   int action = 0;
   
   ArmDisplay( int x, int y, int width, int height ) {

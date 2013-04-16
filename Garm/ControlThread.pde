@@ -34,18 +34,18 @@ class ControlThread extends Thread {
       if( this.armControlMode ) {
         if( this.controllerMode || !config.DEBUG_MODE ) {
           drive.update( 0, 0 );
-          armDisplay.targetX += 2*xbox.leftStick.getX();
-          armDisplay.targetY += 2*xbox.leftStick.getY();
-          armDisplay.grip = (int) map( xbox.rightTrigger.getValue(), -1, 0, 205, 512 );
-          if( xbox.leftBumper.getValue() ) armDisplay.rotatorAngle = (int) constrain( armDisplay.rotatorAngle - 2*xbox.rightStick.getX(), 0, 1023 );
-          else armDisplay.wristAngle = constrain( armDisplay.wristAngle += PI/120 * xbox.rightStick.getY(), -radians(150), radians(150) );
+          arm.targetX += 2*xbox.leftStick.getX();
+          arm.targetY += 2*xbox.leftStick.getY();
+          arm.grip = (int) map( xbox.rightTrigger.getValue(), -1, 0, 205, 512 );
+          if( xbox.leftBumper.getValue() ) arm.rotatorAngle = (int) constrain( arm.rotatorAngle - 2*xbox.rightStick.getX(), 0, 1023 );
+          else arm.wristAngle = constrain( arm.wristAngle += PI/120 * xbox.rightStick.getY(), -radians(150), radians(150) );
         } else {
-          armDisplay.targetX = mouseX - armDisplay.x;
-          armDisplay.targetY = mouseY - armDisplay.y;
-          if( mousePressed ) armDisplay.grip = 205;
-          else armDisplay.grip = 512;
-          if( keyPressed && ( key == 'a' || key == 'A' ) ) armDisplay.rotatorAngle = (int) constrain( armDisplay.rotatorAngle + 3, 0, 1023 );
-          if( keyPressed && ( key == 'd' || key == 'D' ) ) armDisplay.rotatorAngle = (int) constrain( armDisplay.rotatorAngle - 3, 0, 1023 );
+          arm.targetX = mouseX - armDisplay.x;
+          arm.targetY = mouseY - armDisplay.y;
+          if( mousePressed ) arm.grip = 205;
+          else arm.grip = 512;
+          if( keyPressed && ( key == 'a' || key == 'A' ) ) arm.rotatorAngle = (int) constrain( arm.rotatorAngle + 3, 0, 1023 );
+          if( keyPressed && ( key == 'd' || key == 'D' ) ) arm.rotatorAngle = (int) constrain( arm.rotatorAngle - 3, 0, 1023 );
         }
       } else {
         if( !config.DEBUG_MODE ) {
@@ -55,7 +55,7 @@ class ControlThread extends Thread {
         }
       }
       
-      arm.update( armDisplay.rotatorAngle, armDisplay.targetX, armDisplay.targetY, armDisplay.wristAngle, armDisplay.grip );
+      arm.update( arm.rotatorAngle, arm.targetX, arm.targetY, arm.wristAngle, arm.grip );
       
       try {
         sleep((long)(wait));
@@ -71,9 +71,9 @@ class ControlThread extends Thread {
   
   void mouseWheel( int delta ) {
     if( armControlMode && !this.controllerMode ) {
-      //if( mousePressed ) armDisplay.grip = constrain( armDisplay.grip += 20 * delta, 205, 512 );
+      //if( mousePressed ) arm.grip = constrain( arm.grip += 20 * delta, 205, 512 );
       //else
-      armDisplay.wristAngle = constrain( armDisplay.wristAngle += PI/45 * delta, -radians(150), radians(150) );
+      arm.wristAngle = constrain( arm.wristAngle += PI/45 * delta, -radians(150), radians(150) );
     }
   }
   
