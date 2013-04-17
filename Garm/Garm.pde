@@ -44,9 +44,8 @@ void setup() {
   }
   
   // GUI Elements
-  armDisplay = new ArmDisplay( width*45/64, height*11/32, width/2, width/8*3 );
-  driveDisplay = new DriveDisplay( width*45/64, height*27/32, width/2, height/4 );
-  dataDisplay = new DataDisplay( width*7/32, height*20/32, width*9/25, height*7/10 );
+  armDisplay = new ArmDisplay( width*45/64, height/2, width/2, width/8*3 );
+  driveDisplay = new DriveDisplay( width*7/32, height*21/32, width*9/25, height*33/64 );
   
   // Models
   int[] lengths = { armDisplay.width/9, armDisplay.width/8, armDisplay.width/13 };
@@ -71,7 +70,6 @@ void render() {
   renderTitle();
   armDisplay.render();
   driveDisplay.render();
-  dataDisplay.render();
   
 }
 
@@ -79,10 +77,10 @@ void renderTitle() {
   textFont( titleFont );
   textAlign( LEFT, CENTER );
   fill( #868686 );
-  text( "g.arm", width/8, height*3/32 );
+  text( "g.arm", width/8, height/8 );
   fill( #434343 );
   textFont( subTitleFont );
-  text( "Rover Controller Application", width/8 + config.WINDOW_WIDTH/21, height*3/32 + config.WINDOW_HEIGHT/13 );
+  text( "Rover Controller Application", width/8 + width/21, height/4 );
 }
 
 void renderBackground() {

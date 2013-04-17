@@ -4,8 +4,8 @@ class Arm {
   ArmLink[] links;
   ArmGripper gripper;
   
-  int targetX = 30;
-  int targetY = -45;
+  int targetX = 0;
+  int targetY = 0;
   
   int grip = 512;
   int wristAngle = 512;
@@ -16,6 +16,7 @@ class Arm {
     this.links = new ArmLink[3];
     this.gripper = new ArmGripper( 5 );
     for( int i = 0; i < this.links.length; i++ ) this.links[i] = new ArmLink( lengths[i], i+2 );
+    pose( 512, 670, 40, 512, 512 );
   }
   
   void update( int rotatorAngle, int x, int y, float wristAngle, int grip ) {
@@ -40,8 +41,6 @@ class Arm {
     this.links[2].setPosition( wristAngle );
     this.rotator.setPosition( (float) rotatorAngle );
     this.gripper.setPosition( grip );
-    
-    println( wristAngle );
     
   }
   

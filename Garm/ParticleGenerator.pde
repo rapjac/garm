@@ -41,7 +41,7 @@ class Particle {
  
     // set the x and y position
     x = width/8 + 60;
-    y = height*3/32 + 30;
+    y = height/8 + 30;
  
     // set the velocity to be a random number between
     // in both x and y directions.

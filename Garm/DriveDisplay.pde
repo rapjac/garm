@@ -1,5 +1,7 @@
 class DriveDisplay {
   
+  PFont displayFont = createFont( "Century Gothic", 15 );
+  
   int width;
   int height;
   int x;
@@ -21,6 +23,7 @@ class DriveDisplay {
   
   void render() {
     drawWindow();
+    drawSerialIndicator();
     drawSliders();
     drawMaxPower();
   }
@@ -29,13 +32,13 @@ class DriveDisplay {
     rectMode( CENTER );
     for( int i = 0; i < 4; i++ ) {
       int x = startX + this.width*(i+1)/8;
-      int y = this.y;
-      int motorValue = int( ( i < 2 ? 1 : -1 ) * map( drive.motors[i].getValue(), -127, 127, -(this.height*3/8), (this.height*3/8) ) );
+      int y = this.startY + this.height*5/8;
+      int motorValue = int( ( i < 2 ? 1 : -1 ) * map( drive.motors[i].getValue(), -127, 127, -(this.height/4), (this.height/4) ) );
       
       strokeWeight( 3 );
       noStroke();
       fill( #CDCDCD );
-      rect( x, y, this.width/32, this.height*3/4, 3 );
+      rect( x, y, this.width/32, this.height/2, 3 );
       
       noStroke();
       fill( #EF5656 );
@@ -43,7 +46,7 @@ class DriveDisplay {
       
       noFill();
       stroke( #121212 );
-      rect( x, y, this.width/32, this.height*3/4, 3 );
+      rect( x, y, this.width/32, this.height/2, 3 );
       
       line( x - 15, y, x + 15, y );
       stroke( #450101 );
@@ -55,7 +58,7 @@ class DriveDisplay {
   void drawMaxPower() {
     int radius = this.width*3/16;
     int startX = this.startX + this.width*3/4;
-    int startY = this.y;
+    int startY = this.startY + this.height*5/8;
     ellipseMode( CENTER );
     stroke( #121212 );
     strokeWeight( 6 );
@@ -73,6 +76,18 @@ class DriveDisplay {
     noStroke();
     fill( #121212 );
     ellipse( startX, startY, this.width/24, this.width/24 );
+  }
+  
+  void drawSerialIndicator() {
+    stroke( #121212 );
+    strokeWeight( 4 );
+    if( communication.serialActive ) fill( #00AC00 );
+    else fill( #004500 );
+    ellipse( this.startX + 30, this.startY + 30, 20, 20 );
+    fill( #121212 );
+    textAlign( LEFT, CENTER );
+    textFont( displayFont );
+    text( "Serial Activity", this.startX + 50, this.startY + 30);
   }
   
   void drawWindow() {

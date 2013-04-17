@@ -1,5 +1,7 @@
 class DataDisplay {
   
+  PFont displayFont = createFont( "Century Gothic", 15 );
+  
   int width;
   int height;
   int x;
@@ -83,7 +85,7 @@ class DataDisplay {
     ellipse( this.startX + 30, this.startY + height - 30, 20, 20 );
     fill( #121212 );
     textAlign( LEFT, CENTER );
-    textFont( headerFont );
+    textFont( displayFont );
     text( "Serial Activity", this.startX + 50, this.startY + height - 30);
   }
   
