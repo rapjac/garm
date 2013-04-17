@@ -19,7 +19,7 @@ class Arm {
     pose( 512, 670, 40, 512, 512 );
   }
   
-  void update( int rotatorAngle, int x, int y, float wristAngle, int grip ) {
+  void update( int rotatorAngle, int x, int y, int wristAngle, int grip ) {
     
     int a = this.links[1].length;
     int b = this.links[0].length;

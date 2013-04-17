@@ -105,6 +105,9 @@ void keyPressed() {
     case ' ':
       control.armControlMode = !control.armControlMode;
     break;
+    case 't':
+      control.test();
+    break;
   }
 }
 
