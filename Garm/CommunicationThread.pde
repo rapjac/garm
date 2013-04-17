@@ -54,13 +54,6 @@ class CommunicationThread extends Thread {
     xbee.write( 'M' );
   }
   
-  void sendActionData() {
-    this.serialActive = true;
-    xbee.write( (char) armDisplay.action );
-    armDisplay.action = 0;
-    this.serialActive = false;
-  }
-  
   void sendArmData() {
     sendInt( arm.rotator.getServoValue() );
     sendInt( arm.links[0].getServoValue() );

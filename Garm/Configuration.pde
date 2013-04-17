@@ -8,7 +8,7 @@ class Configuration {
   
   static final boolean DEBUG_MODE = false;
   static final boolean SPECIAL_EFFECTS = true;
-  static final boolean PID_ENABLE = false;
+  static final boolean PID_ENABLE = true;
   
   // XBEE:
   // Ultrabook: COM7
@@ -19,7 +19,7 @@ class Configuration {
   
   static final String GAMEPAD = "Controller (XBOX 360 For Windows)";
   //static final String GAMEPAD = "Controller (Xbox 360 Wireless Receiver for Windows)";
-  static final float INPUT_TOLERANCE = 0.11;
+  static final float INPUT_TOLERANCE = 0.10;
   
   static final char ARBOTIX_READY_CHAR = 'A';
   

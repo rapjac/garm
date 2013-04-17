@@ -93,16 +93,16 @@ void renderBackground() {
 void keyPressed() {
   switch( key ) {
     case '1':
-      armDisplay.setAction(1);
+      arm.setPose(1);
     break;
     case '2':
-      armDisplay.setAction(2);
+      arm.setPose(2);
     break;
     case '3':
-      armDisplay.setAction(3);
+      arm.setPose(3);
     break;
     case '4':
-      armDisplay.setAction(4);
+      arm.setPose(4);
     break;
     case ' ':
       control.armControlMode = !control.armControlMode;
@@ -113,16 +113,16 @@ void keyPressed() {
 void keyReleased() {
   switch( key ) {
     case '1':
-      armDisplay.setAction(0);
+      arm.setPose(0);
     break;
     case '2':
-      armDisplay.setAction(0);
+      arm.setPose(0);
     break;
     case '3':
-      armDisplay.setAction(0);
+      arm.setPose(0);
     break;
     case '4':
-      armDisplay.setAction(0);
+      arm.setPose(0);
     break;
   }
 }

@@ -10,8 +10,6 @@ class ArmDisplay {
   int startX = 0;
   int startY = 0;
   
-  int action = 0;
-  
   ArmDisplay( int x, int y, int width, int height ) {
     this.x = x;
     this.y = y;
@@ -25,13 +23,13 @@ class ArmDisplay {
   
   void render() {
     drawWindow();
-    drawActions();
+    drawposes();
     drawArm();
     drawRotator();
   }
   
     
-  void drawActions() {
+  void drawposes() {
     int startX = this.startX + width/4;
     int startY = this.startY + this.height*25/32;
     
@@ -39,17 +37,13 @@ class ArmDisplay {
     strokeWeight( 3 );
     stroke( #121212 );
     ellipseMode( CENTER );
-    if( this.action == 1 ) fill( #F2CE00 );
-    else fill( #E0AC00 );
+    fill( #E0AC00 );
     ellipse( startX, startY - 30, 20, 20 );
-    if( this.action == 3 ) fill( #00CE00 );
-    else fill( #00AC00 );
+    fill( #00AC00 );
     ellipse( startX + 30, startY, 20, 20 );
-    if( this.action == 4 ) fill( #5656CE );
-    else fill( #3434AC );
+    fill( #3434AC );
     ellipse( startX, startY + 30, 20, 20 );
-    if( this.action == 2 ) fill( #CE0000 );
-    else fill( #AC0000 );
+    fill( #AC0000 );
     ellipse( startX - 30, startY, 20, 20 );
      
     fill( #121212 );
@@ -157,10 +151,6 @@ class ArmDisplay {
     strokeWeight( 5 );
     fill( #909090 );
     rect( this.startX, this.startY, this.width, this.height, 20 );
-  }
-  
-  void setAction( int action ) {
-    this.action = action;
   }
   
 }

@@ -16,10 +16,10 @@ class ControlThread extends Thread {
   void start() {
     if( !config.DEBUG_MODE ) {
       xbox.plug( xbox.rightBumper, "switchMode", "ON_PRESS" );
-      xbox.plug( xbox.y, "setAction1", "ON_PRESS" );
-      xbox.plug( xbox.b, "setAction2", "ON_PRESS" );
-      xbox.plug( xbox.a, "setAction3", "ON_PRESS" );
-      xbox.plug( xbox.x, "setAction4", "ON_PRESS" );
+      xbox.plug( xbox.y, "setPose1", "ON_PRESS" );
+      xbox.plug( xbox.b, "setPose2", "ON_PRESS" );
+      xbox.plug( xbox.a, "setPose3", "ON_PRESS" );
+      xbox.plug( xbox.x, "setPose4", "ON_PRESS" );
     }
     addMouseWheelListener(new MouseWheelListener() { 
       public void mouseWheelMoved(MouseWheelEvent mwe) { 
@@ -38,7 +38,7 @@ class ControlThread extends Thread {
           arm.targetY += 2*xbox.leftStick.getY();
           arm.grip = (int) map( xbox.rightTrigger.getValue(), -1, 0, 205, 512 );
           if( xbox.leftBumper.getValue() ) arm.rotatorAngle = (int) constrain( arm.rotatorAngle - 2*xbox.rightStick.getX(), 0, 1023 );
-          else arm.wristAngle = constrain( arm.wristAngle += PI/120 * xbox.rightStick.getY(), -radians(150), radians(150) );
+          else arm.wristAngle = (int) constrain( arm.wristAngle - 2*xbox.rightStick.getY(), 204, 820 );
         } else {
           arm.targetX = mouseX - armDisplay.x;
           arm.targetY = mouseY - armDisplay.y;
@@ -74,9 +74,7 @@ class ControlThread extends Thread {
   
   void mouseWheel( int delta ) {
     if( armControlMode && !this.controllerMode ) {
-      //if( mousePressed ) arm.grip = constrain( arm.grip += 20 * delta, 205, 512 );
-      //else
-      arm.wristAngle = constrain( arm.wristAngle += PI/45 * delta, -radians(150), radians(150) );
+      arm.wristAngle = constrain( arm.wristAngle + delta, 204, 820 );
     }
   }
   
