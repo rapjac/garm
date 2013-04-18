@@ -65,7 +65,7 @@ class ControlThread extends Thread {
         float value = millis()*TWO_PI/2000;
         drive.update( sin(value), cos(value) );
         float value2 = sin( value ) + 1;
-        arm.update( int( 440 + 100*value2 ), int( 35 + 20*value2 ), -40, int( 440 + 50*value2 ), int( 359 + 207*value2 ) );
+        arm.update( int( 512 + 100*( sin( millis()*TWO_PI/4000 ) ) ), int( 35 + 20*value2 ), -40, int( 442 + 100*value2 ), int( 359 + 414*value2 ) );
       }
       try {
         sleep((long)(wait));
