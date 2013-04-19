@@ -6,7 +6,7 @@ class Configuration {
   static final int WINDOW_WIDTH = 1062;
   static final int WINDOW_HEIGHT = 474;
   
-  static final boolean DEBUG_MODE = true;
+  static final boolean DEBUG_MODE = false;
   static final boolean SPECIAL_EFFECTS = true;
   static final boolean PID_ENABLE = true;
   
