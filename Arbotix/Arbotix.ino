@@ -11,7 +11,6 @@ BioloidController bioloid = BioloidController(1000000);
 #define NUM_CAMERA_SERVOS 2
 
 #define SPEED 380
-#define TORQUE 400
 
 int action = 0;
 
@@ -88,18 +87,18 @@ void initializeArm() {
   ax12SetRegister2( 5, 32, SPEED );
   delay( 20 );
   
-  ax12SetRegister2( 1, 34, TORQUE );
+  ax12SetRegister2( 1, 34, 575 );
   delay( 20 );
-  ax12SetRegister2( 2, 34, TORQUE );
+  ax12SetRegister2( 2, 34, 575 );
   delay( 20 );
-  ax12SetRegister2( 3, 34, TORQUE );
+  ax12SetRegister2( 3, 34, 470 );
   delay( 20 );
-  ax12SetRegister2( 4, 34, TORQUE );
+  ax12SetRegister2( 4, 34, 450 );
   delay( 20 );
-  ax12SetRegister2( 5, 34, TORQUE );
+  ax12SetRegister2( 5, 34, 450 );
   delay( 20 );
   
-  pose( 512, 670, 40, 512, 205 );
+  pose( 512, 100, 512, 700, 512 );
 }
 
 void updateArnm() {
