@@ -26,6 +26,7 @@ class ArmDisplay {
     drawposes();
     drawArm();
     drawRotator();
+    drawModeIndicator();
   }
   
     
@@ -143,6 +144,16 @@ class ArmDisplay {
     fill( #121212 );
     ellipse( startX, startY, this.width/20, this.width/20 );
     
+  }
+  
+  void drawModeIndicator() {
+    int startX = this.startX + this.width/16;
+    int startY = this.startY + this.height/16;
+    textFont( displayFont );
+    textAlign( LEFT, LEFT );
+    fill( #121212 );
+    if( control.armControlMode ) text( "Arm Control Mode", startX, startY );
+    else text( "Drive Mode", startX, startY );
   }
   
   void drawWindow() {   

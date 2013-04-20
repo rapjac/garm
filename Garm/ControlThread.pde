@@ -7,7 +7,7 @@ class ControlThread extends Thread {
   boolean controllerMode = true;
   
   int cameraX = 127;
-  int cameraY = 127;
+  int cameraY = 150;
   
   ControlThread( String id, int wait ) {
     this.id = id;
@@ -52,10 +52,14 @@ class ControlThread extends Thread {
         } else {
           if( !config.DEBUG_MODE ) {
             drive.update( xbox.leftStick.getX(), xbox.leftStick.getY() );
+            if( xbox.dpad.getValue() ) {
+              this.cameraX = 127;
+              this.cameraY = 150;
+            }
             if( xbox.rightClick.getValue() ) drive.maxPower = constrain( drive.maxPower -= xbox.rightStick.getY(), 0, 127 );
             else {
-              this.cameraX = (int) map( xbox.rightStick.getX(), -1, 1, 255, 0 );
-              this.cameraY = (int) map( xbox.rightStick.getY(), -1, 1, 0, 255 );
+              this.cameraX = constrain( cameraX += (int) xbox.rightStick.getX(), 0, 255 );
+              this.cameraY = constrain( cameraY -= (int) xbox.rightStick.getY(), 0, 255 );
             }
           }
         }

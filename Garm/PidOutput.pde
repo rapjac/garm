@@ -2,6 +2,7 @@ class PidOutput{
   
   //Outputs
   float processVar;
+  float setPoint;
   
   //Tuning Parameters
   private float kP;
@@ -29,6 +30,7 @@ class PidOutput{
   }
   
   void output( float setPoint ){
+    this.setPoint = setPoint;
     if( config.PID_ENABLE ) {
         if( !Float.isNaN( setPoint ) ) {
         float error = setPoint - this.processVar;

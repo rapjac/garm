@@ -4,7 +4,6 @@ class CommunicationThread extends Thread {
   int wait;
   boolean running;
   boolean serialActive = false;
-  int count = 0;
 
   CommunicationThread( String id, int wait ) {
     this.id = id;

@@ -16,7 +16,7 @@ class Arm {
     this.links = new ArmLink[3];
     this.gripper = new ArmGripper( 5 );
     for( int i = 0; i < this.links.length; i++ ) this.links[i] = new ArmLink( lengths[i], i+2 );
-    pose( 512, 670, 40, 512, 512 );
+    pose( 512, 100, 512, 700, 512 );
   }
   
   void update( int rotatorAngle, int x, int y, int wristAngle, int grip ) {
@@ -45,7 +45,22 @@ class Arm {
   }
   
   void pose( int rotatorAngle, int link0Angle, int link1Angle, int link2Angle, int grip ) {
-    
+    /*float k = 0.05;
+    this.rotator.actuator.goalPosition.kP = k;
+    this.rotator.actuator.goalPosition.kI = k;
+    this.rotator.actuator.goalPosition.kD = k;
+    this.links[0].actuator.goalPosition.kP = k;
+    this.links[0].actuator.goalPosition.kI = k;
+    this.links[0].actuator.goalPosition.kD = k;
+    this.links[1].actuator.goalPosition.kP = k;
+    this.links[1].actuator.goalPosition.kI = k;
+    this.links[1].actuator.goalPosition.kD = k;
+    this.links[2].actuator.goalPosition.kP = k;
+    this.links[2].actuator.goalPosition.kI = k;
+    this.links[2].actuator.goalPosition.kD = k;
+    this.gripper.actuator.goalPosition.kP = k;
+    this.gripper.actuator.goalPosition.kI = k;
+    this.gripper.actuator.goalPosition.kD = k;*/
     int[] angles = { link0Angle, link1Angle, link2Angle };
     int x = 0;
     int y = 0;
@@ -70,16 +85,16 @@ class Arm {
   void setPose( int pose ) {
     switch( pose ) {
       case 1:
-        pose( 512, 80, 375, 770, 512 );
+        pose( 512, 100, 512, 700, this.grip );
       break;
       case 2:
-        
+        this.grip = 512;
       break;
       case 3:
-      
+        this.grip = 204;
       break;
       case 4:
-        pose( 512, 670, 40, 512, 512 );
+        pose( 512, 450, 20, 800, this.grip );
       break;
     }
   }
